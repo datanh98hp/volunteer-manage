@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/client"
+  // output   = "../src/generated/client"
 }
 
 datasource db {
@@ -34,22 +34,22 @@ model Member {
 model CheckIn {
   id        Int      @id @default(autoincrement())
   note      String?
-  member    Member?   @relation(fields: [memberId], references: [id])
+  member    Member?  @relation(fields: [memberId], references: [id])
   memberId  Int?
   createdAt DateTime @default(now())
 }
 
+model Perform {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(100)
+  description String   @db.VarChar(255)
+  JoinIn      JoinIn[]
+}
+
 model JoinIn {
-  id       Int     @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
   member   Member?  @relation(fields: [memberId], references: [id])
   memberId Int?
   perform  Perform? @relation(fields: [perfomId], references: [id])
   perfomId Int?
-}
-
-model Perform {
-  id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(255)
-  description String   @db.VarChar(250)
-  JoinIn      JoinIn[]
 }

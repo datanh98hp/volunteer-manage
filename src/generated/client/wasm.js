@@ -135,16 +135,16 @@ exports.Prisma.CheckInScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.JoinInScalarFieldEnum = {
-  id: 'id',
-  memberId: 'memberId',
-  perfomId: 'perfomId'
-};
-
 exports.Prisma.PerformScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description'
+};
+
+exports.Prisma.JoinInScalarFieldEnum = {
+  id: 'id',
+  memberId: 'memberId',
+  perfomId: 'perfomId'
 };
 
 exports.Prisma.SortOrder = {
@@ -169,8 +169,8 @@ exports.Type = exports.$Enums.Type = {
 exports.Prisma.ModelName = {
   Member: 'Member',
   CheckIn: 'CheckIn',
-  JoinIn: 'JoinIn',
-  Perform: 'Perform'
+  Perform: 'Perform',
+  JoinIn: 'JoinIn'
 };
 
 /**

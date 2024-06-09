@@ -24,15 +24,15 @@ export type Member = $Result.DefaultSelection<Prisma.$MemberPayload>
  */
 export type CheckIn = $Result.DefaultSelection<Prisma.$CheckInPayload>
 /**
- * Model JoinIn
- * 
- */
-export type JoinIn = $Result.DefaultSelection<Prisma.$JoinInPayload>
-/**
  * Model Perform
  * 
  */
 export type Perform = $Result.DefaultSelection<Prisma.$PerformPayload>
+/**
+ * Model JoinIn
+ * 
+ */
+export type JoinIn = $Result.DefaultSelection<Prisma.$JoinInPayload>
 
 /**
  * Enums
@@ -194,16 +194,6 @@ export class PrismaClient<
   get checkIn(): Prisma.CheckInDelegate<ExtArgs>;
 
   /**
-   * `prisma.joinIn`: Exposes CRUD operations for the **JoinIn** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more JoinIns
-    * const joinIns = await prisma.joinIn.findMany()
-    * ```
-    */
-  get joinIn(): Prisma.JoinInDelegate<ExtArgs>;
-
-  /**
    * `prisma.perform`: Exposes CRUD operations for the **Perform** model.
     * Example usage:
     * ```ts
@@ -212,6 +202,16 @@ export class PrismaClient<
     * ```
     */
   get perform(): Prisma.PerformDelegate<ExtArgs>;
+
+  /**
+   * `prisma.joinIn`: Exposes CRUD operations for the **JoinIn** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more JoinIns
+    * const joinIns = await prisma.joinIn.findMany()
+    * ```
+    */
+  get joinIn(): Prisma.JoinInDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -691,8 +691,8 @@ export namespace Prisma {
   export const ModelName: {
     Member: 'Member',
     CheckIn: 'CheckIn',
-    JoinIn: 'JoinIn',
-    Perform: 'Perform'
+    Perform: 'Perform',
+    JoinIn: 'JoinIn'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -709,7 +709,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'member' | 'checkIn' | 'joinIn' | 'perform'
+      modelProps: 'member' | 'checkIn' | 'perform' | 'joinIn'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -853,76 +853,6 @@ export namespace Prisma {
           }
         }
       }
-      JoinIn: {
-        payload: Prisma.$JoinInPayload<ExtArgs>
-        fields: Prisma.JoinInFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.JoinInFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$JoinInPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.JoinInFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
-          }
-          findFirst: {
-            args: Prisma.JoinInFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$JoinInPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.JoinInFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
-          }
-          findMany: {
-            args: Prisma.JoinInFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>[]
-          }
-          create: {
-            args: Prisma.JoinInCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
-          }
-          createMany: {
-            args: Prisma.JoinInCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.JoinInCreateManyAndReturnArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>[]
-          }
-          delete: {
-            args: Prisma.JoinInDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
-          }
-          update: {
-            args: Prisma.JoinInUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
-          }
-          deleteMany: {
-            args: Prisma.JoinInDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          updateMany: {
-            args: Prisma.JoinInUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          upsert: {
-            args: Prisma.JoinInUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
-          }
-          aggregate: {
-            args: Prisma.JoinInAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateJoinIn>
-          }
-          groupBy: {
-            args: Prisma.JoinInGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<JoinInGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.JoinInCountArgs<ExtArgs>,
-            result: $Utils.Optional<JoinInCountAggregateOutputType> | number
-          }
-        }
-      }
       Perform: {
         payload: Prisma.$PerformPayload<ExtArgs>
         fields: Prisma.PerformFieldRefs
@@ -990,6 +920,76 @@ export namespace Prisma {
           count: {
             args: Prisma.PerformCountArgs<ExtArgs>,
             result: $Utils.Optional<PerformCountAggregateOutputType> | number
+          }
+        }
+      }
+      JoinIn: {
+        payload: Prisma.$JoinInPayload<ExtArgs>
+        fields: Prisma.JoinInFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JoinInFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JoinInPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JoinInFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
+          }
+          findFirst: {
+            args: Prisma.JoinInFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JoinInPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JoinInFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
+          }
+          findMany: {
+            args: Prisma.JoinInFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>[]
+          }
+          create: {
+            args: Prisma.JoinInCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
+          }
+          createMany: {
+            args: Prisma.JoinInCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JoinInCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>[]
+          }
+          delete: {
+            args: Prisma.JoinInDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
+          }
+          update: {
+            args: Prisma.JoinInUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
+          }
+          deleteMany: {
+            args: Prisma.JoinInDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JoinInUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.JoinInUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JoinInPayload>
+          }
+          aggregate: {
+            args: Prisma.JoinInAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateJoinIn>
+          }
+          groupBy: {
+            args: Prisma.JoinInGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<JoinInGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JoinInCountArgs<ExtArgs>,
+            result: $Utils.Optional<JoinInCountAggregateOutputType> | number
           }
         }
       }
@@ -3269,6 +3269,990 @@ export namespace Prisma {
 
 
   /**
+   * Model Perform
+   */
+
+  export type AggregatePerform = {
+    _count: PerformCountAggregateOutputType | null
+    _avg: PerformAvgAggregateOutputType | null
+    _sum: PerformSumAggregateOutputType | null
+    _min: PerformMinAggregateOutputType | null
+    _max: PerformMaxAggregateOutputType | null
+  }
+
+  export type PerformAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type PerformSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type PerformMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+  }
+
+  export type PerformMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+  }
+
+  export type PerformCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    _all: number
+  }
+
+
+  export type PerformAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type PerformSumAggregateInputType = {
+    id?: true
+  }
+
+  export type PerformMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+  }
+
+  export type PerformMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+  }
+
+  export type PerformCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    _all?: true
+  }
+
+  export type PerformAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Perform to aggregate.
+     */
+    where?: PerformWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Performs to fetch.
+     */
+    orderBy?: PerformOrderByWithRelationInput | PerformOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PerformWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Performs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Performs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Performs
+    **/
+    _count?: true | PerformCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PerformAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PerformSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PerformMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PerformMaxAggregateInputType
+  }
+
+  export type GetPerformAggregateType<T extends PerformAggregateArgs> = {
+        [P in keyof T & keyof AggregatePerform]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePerform[P]>
+      : GetScalarType<T[P], AggregatePerform[P]>
+  }
+
+
+
+
+  export type PerformGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PerformWhereInput
+    orderBy?: PerformOrderByWithAggregationInput | PerformOrderByWithAggregationInput[]
+    by: PerformScalarFieldEnum[] | PerformScalarFieldEnum
+    having?: PerformScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PerformCountAggregateInputType | true
+    _avg?: PerformAvgAggregateInputType
+    _sum?: PerformSumAggregateInputType
+    _min?: PerformMinAggregateInputType
+    _max?: PerformMaxAggregateInputType
+  }
+
+  export type PerformGroupByOutputType = {
+    id: number
+    name: string
+    description: string
+    _count: PerformCountAggregateOutputType | null
+    _avg: PerformAvgAggregateOutputType | null
+    _sum: PerformSumAggregateOutputType | null
+    _min: PerformMinAggregateOutputType | null
+    _max: PerformMaxAggregateOutputType | null
+  }
+
+  type GetPerformGroupByPayload<T extends PerformGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PerformGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PerformGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PerformGroupByOutputType[P]>
+            : GetScalarType<T[P], PerformGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PerformSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    JoinIn?: boolean | Perform$JoinInArgs<ExtArgs>
+    _count?: boolean | PerformCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["perform"]>
+
+  export type PerformSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+  }, ExtArgs["result"]["perform"]>
+
+  export type PerformSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+  }
+
+  export type PerformInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    JoinIn?: boolean | Perform$JoinInArgs<ExtArgs>
+    _count?: boolean | PerformCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PerformIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PerformPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Perform"
+    objects: {
+      JoinIn: Prisma.$JoinInPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      description: string
+    }, ExtArgs["result"]["perform"]>
+    composites: {}
+  }
+
+  type PerformGetPayload<S extends boolean | null | undefined | PerformDefaultArgs> = $Result.GetResult<Prisma.$PerformPayload, S>
+
+  type PerformCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PerformFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PerformCountAggregateInputType | true
+    }
+
+  export interface PerformDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Perform'], meta: { name: 'Perform' } }
+    /**
+     * Find zero or one Perform that matches the filter.
+     * @param {PerformFindUniqueArgs} args - Arguments to find a Perform
+     * @example
+     * // Get one Perform
+     * const perform = await prisma.perform.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends PerformFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, PerformFindUniqueArgs<ExtArgs>>
+    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Perform that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PerformFindUniqueOrThrowArgs} args - Arguments to find a Perform
+     * @example
+     * // Get one Perform
+     * const perform = await prisma.perform.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends PerformFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, PerformFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Perform that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformFindFirstArgs} args - Arguments to find a Perform
+     * @example
+     * // Get one Perform
+     * const perform = await prisma.perform.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends PerformFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, PerformFindFirstArgs<ExtArgs>>
+    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Perform that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformFindFirstOrThrowArgs} args - Arguments to find a Perform
+     * @example
+     * // Get one Perform
+     * const perform = await prisma.perform.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends PerformFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, PerformFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Performs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Performs
+     * const performs = await prisma.perform.findMany()
+     * 
+     * // Get first 10 Performs
+     * const performs = await prisma.perform.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const performWithIdOnly = await prisma.perform.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends PerformFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PerformFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Perform.
+     * @param {PerformCreateArgs} args - Arguments to create a Perform.
+     * @example
+     * // Create one Perform
+     * const Perform = await prisma.perform.create({
+     *   data: {
+     *     // ... data to create a Perform
+     *   }
+     * })
+     * 
+    **/
+    create<T extends PerformCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, PerformCreateArgs<ExtArgs>>
+    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Performs.
+     * @param {PerformCreateManyArgs} args - Arguments to create many Performs.
+     * @example
+     * // Create many Performs
+     * const perform = await prisma.perform.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+    **/
+    createMany<T extends PerformCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PerformCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Performs and returns the data saved in the database.
+     * @param {PerformCreateManyAndReturnArgs} args - Arguments to create many Performs.
+     * @example
+     * // Create many Performs
+     * const perform = await prisma.perform.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Performs and only return the `id`
+     * const performWithIdOnly = await prisma.perform.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends PerformCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, PerformCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'createManyAndReturn'>>
+
+    /**
+     * Delete a Perform.
+     * @param {PerformDeleteArgs} args - Arguments to delete one Perform.
+     * @example
+     * // Delete one Perform
+     * const Perform = await prisma.perform.delete({
+     *   where: {
+     *     // ... filter to delete one Perform
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends PerformDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, PerformDeleteArgs<ExtArgs>>
+    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Perform.
+     * @param {PerformUpdateArgs} args - Arguments to update one Perform.
+     * @example
+     * // Update one Perform
+     * const perform = await prisma.perform.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends PerformUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, PerformUpdateArgs<ExtArgs>>
+    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Performs.
+     * @param {PerformDeleteManyArgs} args - Arguments to filter Performs to delete.
+     * @example
+     * // Delete a few Performs
+     * const { count } = await prisma.perform.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends PerformDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PerformDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Performs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Performs
+     * const perform = await prisma.perform.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends PerformUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, PerformUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Perform.
+     * @param {PerformUpsertArgs} args - Arguments to update or create a Perform.
+     * @example
+     * // Update or create a Perform
+     * const perform = await prisma.perform.upsert({
+     *   create: {
+     *     // ... data to create a Perform
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Perform we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends PerformUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, PerformUpsertArgs<ExtArgs>>
+    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Performs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformCountArgs} args - Arguments to filter Performs to count.
+     * @example
+     * // Count the number of Performs
+     * const count = await prisma.perform.count({
+     *   where: {
+     *     // ... the filter for the Performs we want to count
+     *   }
+     * })
+    **/
+    count<T extends PerformCountArgs>(
+      args?: Subset<T, PerformCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PerformCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Perform.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PerformAggregateArgs>(args: Subset<T, PerformAggregateArgs>): Prisma.PrismaPromise<GetPerformAggregateType<T>>
+
+    /**
+     * Group by Perform.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PerformGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PerformGroupByArgs['orderBy'] }
+        : { orderBy?: PerformGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PerformGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPerformGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Perform model
+   */
+  readonly fields: PerformFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Perform.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PerformClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    JoinIn<T extends Perform$JoinInArgs<ExtArgs> = {}>(args?: Subset<T, Perform$JoinInArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JoinInPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Perform model
+   */ 
+  interface PerformFieldRefs {
+    readonly id: FieldRef<"Perform", 'Int'>
+    readonly name: FieldRef<"Perform", 'String'>
+    readonly description: FieldRef<"Perform", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Perform findUnique
+   */
+  export type PerformFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformInclude<ExtArgs> | null
+    /**
+     * Filter, which Perform to fetch.
+     */
+    where: PerformWhereUniqueInput
+  }
+
+  /**
+   * Perform findUniqueOrThrow
+   */
+  export type PerformFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformInclude<ExtArgs> | null
+    /**
+     * Filter, which Perform to fetch.
+     */
+    where: PerformWhereUniqueInput
+  }
+
+  /**
+   * Perform findFirst
+   */
+  export type PerformFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformInclude<ExtArgs> | null
+    /**
+     * Filter, which Perform to fetch.
+     */
+    where?: PerformWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Performs to fetch.
+     */
+    orderBy?: PerformOrderByWithRelationInput | PerformOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Performs.
+     */
+    cursor?: PerformWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Performs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Performs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Performs.
+     */
+    distinct?: PerformScalarFieldEnum | PerformScalarFieldEnum[]
+  }
+
+  /**
+   * Perform findFirstOrThrow
+   */
+  export type PerformFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformInclude<ExtArgs> | null
+    /**
+     * Filter, which Perform to fetch.
+     */
+    where?: PerformWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Performs to fetch.
+     */
+    orderBy?: PerformOrderByWithRelationInput | PerformOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Performs.
+     */
+    cursor?: PerformWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Performs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Performs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Performs.
+     */
+    distinct?: PerformScalarFieldEnum | PerformScalarFieldEnum[]
+  }
+
+  /**
+   * Perform findMany
+   */
+  export type PerformFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformInclude<ExtArgs> | null
+    /**
+     * Filter, which Performs to fetch.
+     */
+    where?: PerformWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Performs to fetch.
+     */
+    orderBy?: PerformOrderByWithRelationInput | PerformOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Performs.
+     */
+    cursor?: PerformWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Performs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Performs.
+     */
+    skip?: number
+    distinct?: PerformScalarFieldEnum | PerformScalarFieldEnum[]
+  }
+
+  /**
+   * Perform create
+   */
+  export type PerformCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Perform.
+     */
+    data: XOR<PerformCreateInput, PerformUncheckedCreateInput>
+  }
+
+  /**
+   * Perform createMany
+   */
+  export type PerformCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Performs.
+     */
+    data: PerformCreateManyInput | PerformCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Perform createManyAndReturn
+   */
+  export type PerformCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Performs.
+     */
+    data: PerformCreateManyInput | PerformCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Perform update
+   */
+  export type PerformUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Perform.
+     */
+    data: XOR<PerformUpdateInput, PerformUncheckedUpdateInput>
+    /**
+     * Choose, which Perform to update.
+     */
+    where: PerformWhereUniqueInput
+  }
+
+  /**
+   * Perform updateMany
+   */
+  export type PerformUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Performs.
+     */
+    data: XOR<PerformUpdateManyMutationInput, PerformUncheckedUpdateManyInput>
+    /**
+     * Filter which Performs to update
+     */
+    where?: PerformWhereInput
+  }
+
+  /**
+   * Perform upsert
+   */
+  export type PerformUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Perform to update in case it exists.
+     */
+    where: PerformWhereUniqueInput
+    /**
+     * In case the Perform found by the `where` argument doesn't exist, create a new Perform with this data.
+     */
+    create: XOR<PerformCreateInput, PerformUncheckedCreateInput>
+    /**
+     * In case the Perform was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PerformUpdateInput, PerformUncheckedUpdateInput>
+  }
+
+  /**
+   * Perform delete
+   */
+  export type PerformDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformInclude<ExtArgs> | null
+    /**
+     * Filter which Perform to delete.
+     */
+    where: PerformWhereUniqueInput
+  }
+
+  /**
+   * Perform deleteMany
+   */
+  export type PerformDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Performs to delete
+     */
+    where?: PerformWhereInput
+  }
+
+  /**
+   * Perform.JoinIn
+   */
+  export type Perform$JoinInArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JoinIn
+     */
+    select?: JoinInSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JoinInInclude<ExtArgs> | null
+    where?: JoinInWhereInput
+    orderBy?: JoinInOrderByWithRelationInput | JoinInOrderByWithRelationInput[]
+    cursor?: JoinInWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JoinInScalarFieldEnum | JoinInScalarFieldEnum[]
+  }
+
+  /**
+   * Perform without action
+   */
+  export type PerformDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Perform
+     */
+    select?: PerformSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model JoinIn
    */
 
@@ -4283,990 +5267,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Perform
-   */
-
-  export type AggregatePerform = {
-    _count: PerformCountAggregateOutputType | null
-    _avg: PerformAvgAggregateOutputType | null
-    _sum: PerformSumAggregateOutputType | null
-    _min: PerformMinAggregateOutputType | null
-    _max: PerformMaxAggregateOutputType | null
-  }
-
-  export type PerformAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type PerformSumAggregateOutputType = {
-    id: number | null
-  }
-
-  export type PerformMinAggregateOutputType = {
-    id: number | null
-    name: string | null
-    description: string | null
-  }
-
-  export type PerformMaxAggregateOutputType = {
-    id: number | null
-    name: string | null
-    description: string | null
-  }
-
-  export type PerformCountAggregateOutputType = {
-    id: number
-    name: number
-    description: number
-    _all: number
-  }
-
-
-  export type PerformAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type PerformSumAggregateInputType = {
-    id?: true
-  }
-
-  export type PerformMinAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-  }
-
-  export type PerformMaxAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-  }
-
-  export type PerformCountAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    _all?: true
-  }
-
-  export type PerformAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Perform to aggregate.
-     */
-    where?: PerformWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Performs to fetch.
-     */
-    orderBy?: PerformOrderByWithRelationInput | PerformOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: PerformWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Performs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Performs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Performs
-    **/
-    _count?: true | PerformCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: PerformAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: PerformSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: PerformMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: PerformMaxAggregateInputType
-  }
-
-  export type GetPerformAggregateType<T extends PerformAggregateArgs> = {
-        [P in keyof T & keyof AggregatePerform]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregatePerform[P]>
-      : GetScalarType<T[P], AggregatePerform[P]>
-  }
-
-
-
-
-  export type PerformGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PerformWhereInput
-    orderBy?: PerformOrderByWithAggregationInput | PerformOrderByWithAggregationInput[]
-    by: PerformScalarFieldEnum[] | PerformScalarFieldEnum
-    having?: PerformScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: PerformCountAggregateInputType | true
-    _avg?: PerformAvgAggregateInputType
-    _sum?: PerformSumAggregateInputType
-    _min?: PerformMinAggregateInputType
-    _max?: PerformMaxAggregateInputType
-  }
-
-  export type PerformGroupByOutputType = {
-    id: number
-    name: string
-    description: string
-    _count: PerformCountAggregateOutputType | null
-    _avg: PerformAvgAggregateOutputType | null
-    _sum: PerformSumAggregateOutputType | null
-    _min: PerformMinAggregateOutputType | null
-    _max: PerformMaxAggregateOutputType | null
-  }
-
-  type GetPerformGroupByPayload<T extends PerformGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<PerformGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof PerformGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], PerformGroupByOutputType[P]>
-            : GetScalarType<T[P], PerformGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type PerformSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    JoinIn?: boolean | Perform$JoinInArgs<ExtArgs>
-    _count?: boolean | PerformCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["perform"]>
-
-  export type PerformSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-  }, ExtArgs["result"]["perform"]>
-
-  export type PerformSelectScalar = {
-    id?: boolean
-    name?: boolean
-    description?: boolean
-  }
-
-  export type PerformInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    JoinIn?: boolean | Perform$JoinInArgs<ExtArgs>
-    _count?: boolean | PerformCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type PerformIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $PerformPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Perform"
-    objects: {
-      JoinIn: Prisma.$JoinInPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      name: string
-      description: string
-    }, ExtArgs["result"]["perform"]>
-    composites: {}
-  }
-
-  type PerformGetPayload<S extends boolean | null | undefined | PerformDefaultArgs> = $Result.GetResult<Prisma.$PerformPayload, S>
-
-  type PerformCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<PerformFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: PerformCountAggregateInputType | true
-    }
-
-  export interface PerformDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Perform'], meta: { name: 'Perform' } }
-    /**
-     * Find zero or one Perform that matches the filter.
-     * @param {PerformFindUniqueArgs} args - Arguments to find a Perform
-     * @example
-     * // Get one Perform
-     * const perform = await prisma.perform.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends PerformFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, PerformFindUniqueArgs<ExtArgs>>
-    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
-
-    /**
-     * Find one Perform that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
-     * @param {PerformFindUniqueOrThrowArgs} args - Arguments to find a Perform
-     * @example
-     * // Get one Perform
-     * const perform = await prisma.perform.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends PerformFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, PerformFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find the first Perform that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PerformFindFirstArgs} args - Arguments to find a Perform
-     * @example
-     * // Get one Perform
-     * const perform = await prisma.perform.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends PerformFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, PerformFindFirstArgs<ExtArgs>>
-    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
-
-    /**
-     * Find the first Perform that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PerformFindFirstOrThrowArgs} args - Arguments to find a Perform
-     * @example
-     * // Get one Perform
-     * const perform = await prisma.perform.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends PerformFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, PerformFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find zero or more Performs that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PerformFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Performs
-     * const performs = await prisma.perform.findMany()
-     * 
-     * // Get first 10 Performs
-     * const performs = await prisma.perform.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const performWithIdOnly = await prisma.perform.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends PerformFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, PerformFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'findMany'>>
-
-    /**
-     * Create a Perform.
-     * @param {PerformCreateArgs} args - Arguments to create a Perform.
-     * @example
-     * // Create one Perform
-     * const Perform = await prisma.perform.create({
-     *   data: {
-     *     // ... data to create a Perform
-     *   }
-     * })
-     * 
-    **/
-    create<T extends PerformCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, PerformCreateArgs<ExtArgs>>
-    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
-
-    /**
-     * Create many Performs.
-     * @param {PerformCreateManyArgs} args - Arguments to create many Performs.
-     * @example
-     * // Create many Performs
-     * const perform = await prisma.perform.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-    **/
-    createMany<T extends PerformCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, PerformCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Performs and returns the data saved in the database.
-     * @param {PerformCreateManyAndReturnArgs} args - Arguments to create many Performs.
-     * @example
-     * // Create many Performs
-     * const perform = await prisma.perform.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Performs and only return the `id`
-     * const performWithIdOnly = await prisma.perform.createManyAndReturn({ 
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-    **/
-    createManyAndReturn<T extends PerformCreateManyAndReturnArgs<ExtArgs>>(
-      args?: SelectSubset<T, PerformCreateManyAndReturnArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'createManyAndReturn'>>
-
-    /**
-     * Delete a Perform.
-     * @param {PerformDeleteArgs} args - Arguments to delete one Perform.
-     * @example
-     * // Delete one Perform
-     * const Perform = await prisma.perform.delete({
-     *   where: {
-     *     // ... filter to delete one Perform
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends PerformDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, PerformDeleteArgs<ExtArgs>>
-    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
-
-    /**
-     * Update one Perform.
-     * @param {PerformUpdateArgs} args - Arguments to update one Perform.
-     * @example
-     * // Update one Perform
-     * const perform = await prisma.perform.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends PerformUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, PerformUpdateArgs<ExtArgs>>
-    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
-
-    /**
-     * Delete zero or more Performs.
-     * @param {PerformDeleteManyArgs} args - Arguments to filter Performs to delete.
-     * @example
-     * // Delete a few Performs
-     * const { count } = await prisma.perform.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends PerformDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, PerformDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Performs.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PerformUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Performs
-     * const perform = await prisma.perform.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends PerformUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, PerformUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Perform.
-     * @param {PerformUpsertArgs} args - Arguments to update or create a Perform.
-     * @example
-     * // Update or create a Perform
-     * const perform = await prisma.perform.upsert({
-     *   create: {
-     *     // ... data to create a Perform
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Perform we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends PerformUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, PerformUpsertArgs<ExtArgs>>
-    ): Prisma__PerformClient<$Result.GetResult<Prisma.$PerformPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
-
-    /**
-     * Count the number of Performs.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PerformCountArgs} args - Arguments to filter Performs to count.
-     * @example
-     * // Count the number of Performs
-     * const count = await prisma.perform.count({
-     *   where: {
-     *     // ... the filter for the Performs we want to count
-     *   }
-     * })
-    **/
-    count<T extends PerformCountArgs>(
-      args?: Subset<T, PerformCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], PerformCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Perform.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PerformAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends PerformAggregateArgs>(args: Subset<T, PerformAggregateArgs>): Prisma.PrismaPromise<GetPerformAggregateType<T>>
-
-    /**
-     * Group by Perform.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PerformGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends PerformGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PerformGroupByArgs['orderBy'] }
-        : { orderBy?: PerformGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, PerformGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPerformGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Perform model
-   */
-  readonly fields: PerformFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Perform.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__PerformClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    JoinIn<T extends Perform$JoinInArgs<ExtArgs> = {}>(args?: Subset<T, Perform$JoinInArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JoinInPayload<ExtArgs>, T, 'findMany'> | Null>;
-
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
-  }
-
-
-
-  /**
-   * Fields of the Perform model
-   */ 
-  interface PerformFieldRefs {
-    readonly id: FieldRef<"Perform", 'Int'>
-    readonly name: FieldRef<"Perform", 'String'>
-    readonly description: FieldRef<"Perform", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Perform findUnique
-   */
-  export type PerformFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PerformInclude<ExtArgs> | null
-    /**
-     * Filter, which Perform to fetch.
-     */
-    where: PerformWhereUniqueInput
-  }
-
-  /**
-   * Perform findUniqueOrThrow
-   */
-  export type PerformFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PerformInclude<ExtArgs> | null
-    /**
-     * Filter, which Perform to fetch.
-     */
-    where: PerformWhereUniqueInput
-  }
-
-  /**
-   * Perform findFirst
-   */
-  export type PerformFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PerformInclude<ExtArgs> | null
-    /**
-     * Filter, which Perform to fetch.
-     */
-    where?: PerformWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Performs to fetch.
-     */
-    orderBy?: PerformOrderByWithRelationInput | PerformOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Performs.
-     */
-    cursor?: PerformWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Performs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Performs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Performs.
-     */
-    distinct?: PerformScalarFieldEnum | PerformScalarFieldEnum[]
-  }
-
-  /**
-   * Perform findFirstOrThrow
-   */
-  export type PerformFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PerformInclude<ExtArgs> | null
-    /**
-     * Filter, which Perform to fetch.
-     */
-    where?: PerformWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Performs to fetch.
-     */
-    orderBy?: PerformOrderByWithRelationInput | PerformOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Performs.
-     */
-    cursor?: PerformWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Performs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Performs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Performs.
-     */
-    distinct?: PerformScalarFieldEnum | PerformScalarFieldEnum[]
-  }
-
-  /**
-   * Perform findMany
-   */
-  export type PerformFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PerformInclude<ExtArgs> | null
-    /**
-     * Filter, which Performs to fetch.
-     */
-    where?: PerformWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Performs to fetch.
-     */
-    orderBy?: PerformOrderByWithRelationInput | PerformOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Performs.
-     */
-    cursor?: PerformWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Performs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Performs.
-     */
-    skip?: number
-    distinct?: PerformScalarFieldEnum | PerformScalarFieldEnum[]
-  }
-
-  /**
-   * Perform create
-   */
-  export type PerformCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PerformInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Perform.
-     */
-    data: XOR<PerformCreateInput, PerformUncheckedCreateInput>
-  }
-
-  /**
-   * Perform createMany
-   */
-  export type PerformCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Performs.
-     */
-    data: PerformCreateManyInput | PerformCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Perform createManyAndReturn
-   */
-  export type PerformCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * The data used to create many Performs.
-     */
-    data: PerformCreateManyInput | PerformCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Perform update
-   */
-  export type PerformUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PerformInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Perform.
-     */
-    data: XOR<PerformUpdateInput, PerformUncheckedUpdateInput>
-    /**
-     * Choose, which Perform to update.
-     */
-    where: PerformWhereUniqueInput
-  }
-
-  /**
-   * Perform updateMany
-   */
-  export type PerformUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Performs.
-     */
-    data: XOR<PerformUpdateManyMutationInput, PerformUncheckedUpdateManyInput>
-    /**
-     * Filter which Performs to update
-     */
-    where?: PerformWhereInput
-  }
-
-  /**
-   * Perform upsert
-   */
-  export type PerformUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PerformInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Perform to update in case it exists.
-     */
-    where: PerformWhereUniqueInput
-    /**
-     * In case the Perform found by the `where` argument doesn't exist, create a new Perform with this data.
-     */
-    create: XOR<PerformCreateInput, PerformUncheckedCreateInput>
-    /**
-     * In case the Perform was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<PerformUpdateInput, PerformUncheckedUpdateInput>
-  }
-
-  /**
-   * Perform delete
-   */
-  export type PerformDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PerformInclude<ExtArgs> | null
-    /**
-     * Filter which Perform to delete.
-     */
-    where: PerformWhereUniqueInput
-  }
-
-  /**
-   * Perform deleteMany
-   */
-  export type PerformDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Performs to delete
-     */
-    where?: PerformWhereInput
-  }
-
-  /**
-   * Perform.JoinIn
-   */
-  export type Perform$JoinInArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the JoinIn
-     */
-    select?: JoinInSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: JoinInInclude<ExtArgs> | null
-    where?: JoinInWhereInput
-    orderBy?: JoinInOrderByWithRelationInput | JoinInOrderByWithRelationInput[]
-    cursor?: JoinInWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: JoinInScalarFieldEnum | JoinInScalarFieldEnum[]
-  }
-
-  /**
-   * Perform without action
-   */
-  export type PerformDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Perform
-     */
-    select?: PerformSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PerformInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Enums
    */
 
@@ -5302,15 +5302,6 @@ export namespace Prisma {
   export type CheckInScalarFieldEnum = (typeof CheckInScalarFieldEnum)[keyof typeof CheckInScalarFieldEnum]
 
 
-  export const JoinInScalarFieldEnum: {
-    id: 'id',
-    memberId: 'memberId',
-    perfomId: 'perfomId'
-  };
-
-  export type JoinInScalarFieldEnum = (typeof JoinInScalarFieldEnum)[keyof typeof JoinInScalarFieldEnum]
-
-
   export const PerformScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -5318,6 +5309,15 @@ export namespace Prisma {
   };
 
   export type PerformScalarFieldEnum = (typeof PerformScalarFieldEnum)[keyof typeof PerformScalarFieldEnum]
+
+
+  export const JoinInScalarFieldEnum: {
+    id: 'id',
+    memberId: 'memberId',
+    perfomId: 'perfomId'
+  };
+
+  export type JoinInScalarFieldEnum = (typeof JoinInScalarFieldEnum)[keyof typeof JoinInScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5539,6 +5539,53 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"CheckIn"> | Date | string
   }
 
+  export type PerformWhereInput = {
+    AND?: PerformWhereInput | PerformWhereInput[]
+    OR?: PerformWhereInput[]
+    NOT?: PerformWhereInput | PerformWhereInput[]
+    id?: IntFilter<"Perform"> | number
+    name?: StringFilter<"Perform"> | string
+    description?: StringFilter<"Perform"> | string
+    JoinIn?: JoinInListRelationFilter
+  }
+
+  export type PerformOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    JoinIn?: JoinInOrderByRelationAggregateInput
+  }
+
+  export type PerformWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: PerformWhereInput | PerformWhereInput[]
+    OR?: PerformWhereInput[]
+    NOT?: PerformWhereInput | PerformWhereInput[]
+    name?: StringFilter<"Perform"> | string
+    description?: StringFilter<"Perform"> | string
+    JoinIn?: JoinInListRelationFilter
+  }, "id">
+
+  export type PerformOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    _count?: PerformCountOrderByAggregateInput
+    _avg?: PerformAvgOrderByAggregateInput
+    _max?: PerformMaxOrderByAggregateInput
+    _min?: PerformMinOrderByAggregateInput
+    _sum?: PerformSumOrderByAggregateInput
+  }
+
+  export type PerformScalarWhereWithAggregatesInput = {
+    AND?: PerformScalarWhereWithAggregatesInput | PerformScalarWhereWithAggregatesInput[]
+    OR?: PerformScalarWhereWithAggregatesInput[]
+    NOT?: PerformScalarWhereWithAggregatesInput | PerformScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Perform"> | number
+    name?: StringWithAggregatesFilter<"Perform"> | string
+    description?: StringWithAggregatesFilter<"Perform"> | string
+  }
+
   export type JoinInWhereInput = {
     AND?: JoinInWhereInput | JoinInWhereInput[]
     OR?: JoinInWhereInput[]
@@ -5587,53 +5634,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"JoinIn"> | number
     memberId?: IntNullableWithAggregatesFilter<"JoinIn"> | number | null
     perfomId?: IntNullableWithAggregatesFilter<"JoinIn"> | number | null
-  }
-
-  export type PerformWhereInput = {
-    AND?: PerformWhereInput | PerformWhereInput[]
-    OR?: PerformWhereInput[]
-    NOT?: PerformWhereInput | PerformWhereInput[]
-    id?: IntFilter<"Perform"> | number
-    name?: StringFilter<"Perform"> | string
-    description?: StringFilter<"Perform"> | string
-    JoinIn?: JoinInListRelationFilter
-  }
-
-  export type PerformOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    JoinIn?: JoinInOrderByRelationAggregateInput
-  }
-
-  export type PerformWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: PerformWhereInput | PerformWhereInput[]
-    OR?: PerformWhereInput[]
-    NOT?: PerformWhereInput | PerformWhereInput[]
-    name?: StringFilter<"Perform"> | string
-    description?: StringFilter<"Perform"> | string
-    JoinIn?: JoinInListRelationFilter
-  }, "id">
-
-  export type PerformOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    _count?: PerformCountOrderByAggregateInput
-    _avg?: PerformAvgOrderByAggregateInput
-    _max?: PerformMaxOrderByAggregateInput
-    _min?: PerformMinOrderByAggregateInput
-    _sum?: PerformSumOrderByAggregateInput
-  }
-
-  export type PerformScalarWhereWithAggregatesInput = {
-    AND?: PerformScalarWhereWithAggregatesInput | PerformScalarWhereWithAggregatesInput[]
-    OR?: PerformScalarWhereWithAggregatesInput[]
-    NOT?: PerformScalarWhereWithAggregatesInput | PerformScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Perform"> | number
-    name?: StringWithAggregatesFilter<"Perform"> | string
-    description?: StringWithAggregatesFilter<"Perform"> | string
   }
 
   export type MemberCreateInput = {
@@ -5749,44 +5749,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type JoinInCreateInput = {
-    member?: MemberCreateNestedOneWithoutJoinInInput
-    perform?: PerformCreateNestedOneWithoutJoinInInput
-  }
-
-  export type JoinInUncheckedCreateInput = {
-    id?: number
-    memberId?: number | null
-    perfomId?: number | null
-  }
-
-  export type JoinInUpdateInput = {
-    member?: MemberUpdateOneWithoutJoinInNestedInput
-    perform?: PerformUpdateOneWithoutJoinInNestedInput
-  }
-
-  export type JoinInUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    memberId?: NullableIntFieldUpdateOperationsInput | number | null
-    perfomId?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type JoinInCreateManyInput = {
-    id?: number
-    memberId?: number | null
-    perfomId?: number | null
-  }
-
-  export type JoinInUpdateManyMutationInput = {
-
-  }
-
-  export type JoinInUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    memberId?: NullableIntFieldUpdateOperationsInput | number | null
-    perfomId?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
   export type PerformCreateInput = {
     name: string
     description: string
@@ -5828,6 +5790,44 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type JoinInCreateInput = {
+    member?: MemberCreateNestedOneWithoutJoinInInput
+    perform?: PerformCreateNestedOneWithoutJoinInInput
+  }
+
+  export type JoinInUncheckedCreateInput = {
+    id?: number
+    memberId?: number | null
+    perfomId?: number | null
+  }
+
+  export type JoinInUpdateInput = {
+    member?: MemberUpdateOneWithoutJoinInNestedInput
+    perform?: PerformUpdateOneWithoutJoinInNestedInput
+  }
+
+  export type JoinInUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    memberId?: NullableIntFieldUpdateOperationsInput | number | null
+    perfomId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type JoinInCreateManyInput = {
+    id?: number
+    memberId?: number | null
+    perfomId?: number | null
+  }
+
+  export type JoinInUpdateManyMutationInput = {
+
+  }
+
+  export type JoinInUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    memberId?: NullableIntFieldUpdateOperationsInput | number | null
+    perfomId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -6088,6 +6088,32 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type PerformCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+  }
+
+  export type PerformAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type PerformMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+  }
+
+  export type PerformMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+  }
+
+  export type PerformSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type PerformNullableRelationFilter = {
     is?: PerformWhereInput | null
     isNot?: PerformWhereInput | null
@@ -6121,32 +6147,6 @@ export namespace Prisma {
     id?: SortOrder
     memberId?: SortOrder
     perfomId?: SortOrder
-  }
-
-  export type PerformCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-  }
-
-  export type PerformAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type PerformMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-  }
-
-  export type PerformMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-  }
-
-  export type PerformSumOrderByAggregateInput = {
-    id?: SortOrder
   }
 
   export type CheckInCreateNestedManyWithoutMemberInput = {
@@ -6281,38 +6281,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type MemberCreateNestedOneWithoutJoinInInput = {
-    create?: XOR<MemberCreateWithoutJoinInInput, MemberUncheckedCreateWithoutJoinInInput>
-    connectOrCreate?: MemberCreateOrConnectWithoutJoinInInput
-    connect?: MemberWhereUniqueInput
-  }
-
-  export type PerformCreateNestedOneWithoutJoinInInput = {
-    create?: XOR<PerformCreateWithoutJoinInInput, PerformUncheckedCreateWithoutJoinInInput>
-    connectOrCreate?: PerformCreateOrConnectWithoutJoinInInput
-    connect?: PerformWhereUniqueInput
-  }
-
-  export type MemberUpdateOneWithoutJoinInNestedInput = {
-    create?: XOR<MemberCreateWithoutJoinInInput, MemberUncheckedCreateWithoutJoinInInput>
-    connectOrCreate?: MemberCreateOrConnectWithoutJoinInInput
-    upsert?: MemberUpsertWithoutJoinInInput
-    disconnect?: MemberWhereInput | boolean
-    delete?: MemberWhereInput | boolean
-    connect?: MemberWhereUniqueInput
-    update?: XOR<XOR<MemberUpdateToOneWithWhereWithoutJoinInInput, MemberUpdateWithoutJoinInInput>, MemberUncheckedUpdateWithoutJoinInInput>
-  }
-
-  export type PerformUpdateOneWithoutJoinInNestedInput = {
-    create?: XOR<PerformCreateWithoutJoinInInput, PerformUncheckedCreateWithoutJoinInInput>
-    connectOrCreate?: PerformCreateOrConnectWithoutJoinInInput
-    upsert?: PerformUpsertWithoutJoinInInput
-    disconnect?: PerformWhereInput | boolean
-    delete?: PerformWhereInput | boolean
-    connect?: PerformWhereUniqueInput
-    update?: XOR<XOR<PerformUpdateToOneWithWhereWithoutJoinInInput, PerformUpdateWithoutJoinInInput>, PerformUncheckedUpdateWithoutJoinInInput>
-  }
-
   export type JoinInCreateNestedManyWithoutPerformInput = {
     create?: XOR<JoinInCreateWithoutPerformInput, JoinInUncheckedCreateWithoutPerformInput> | JoinInCreateWithoutPerformInput[] | JoinInUncheckedCreateWithoutPerformInput[]
     connectOrCreate?: JoinInCreateOrConnectWithoutPerformInput | JoinInCreateOrConnectWithoutPerformInput[]
@@ -6353,6 +6321,38 @@ export namespace Prisma {
     update?: JoinInUpdateWithWhereUniqueWithoutPerformInput | JoinInUpdateWithWhereUniqueWithoutPerformInput[]
     updateMany?: JoinInUpdateManyWithWhereWithoutPerformInput | JoinInUpdateManyWithWhereWithoutPerformInput[]
     deleteMany?: JoinInScalarWhereInput | JoinInScalarWhereInput[]
+  }
+
+  export type MemberCreateNestedOneWithoutJoinInInput = {
+    create?: XOR<MemberCreateWithoutJoinInInput, MemberUncheckedCreateWithoutJoinInInput>
+    connectOrCreate?: MemberCreateOrConnectWithoutJoinInInput
+    connect?: MemberWhereUniqueInput
+  }
+
+  export type PerformCreateNestedOneWithoutJoinInInput = {
+    create?: XOR<PerformCreateWithoutJoinInInput, PerformUncheckedCreateWithoutJoinInInput>
+    connectOrCreate?: PerformCreateOrConnectWithoutJoinInInput
+    connect?: PerformWhereUniqueInput
+  }
+
+  export type MemberUpdateOneWithoutJoinInNestedInput = {
+    create?: XOR<MemberCreateWithoutJoinInInput, MemberUncheckedCreateWithoutJoinInInput>
+    connectOrCreate?: MemberCreateOrConnectWithoutJoinInInput
+    upsert?: MemberUpsertWithoutJoinInInput
+    disconnect?: MemberWhereInput | boolean
+    delete?: MemberWhereInput | boolean
+    connect?: MemberWhereUniqueInput
+    update?: XOR<XOR<MemberUpdateToOneWithWhereWithoutJoinInInput, MemberUpdateWithoutJoinInInput>, MemberUncheckedUpdateWithoutJoinInInput>
+  }
+
+  export type PerformUpdateOneWithoutJoinInNestedInput = {
+    create?: XOR<PerformCreateWithoutJoinInInput, PerformUncheckedCreateWithoutJoinInInput>
+    connectOrCreate?: PerformCreateOrConnectWithoutJoinInInput
+    upsert?: PerformUpsertWithoutJoinInInput
+    disconnect?: PerformWhereInput | boolean
+    delete?: PerformWhereInput | boolean
+    connect?: PerformWhereUniqueInput
+    update?: XOR<XOR<PerformUpdateToOneWithWhereWithoutJoinInInput, PerformUpdateWithoutJoinInInput>, PerformUncheckedUpdateWithoutJoinInInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -6680,6 +6680,41 @@ export namespace Prisma {
     JoinIn?: JoinInUncheckedUpdateManyWithoutMemberNestedInput
   }
 
+  export type JoinInCreateWithoutPerformInput = {
+    member?: MemberCreateNestedOneWithoutJoinInInput
+  }
+
+  export type JoinInUncheckedCreateWithoutPerformInput = {
+    id?: number
+    memberId?: number | null
+  }
+
+  export type JoinInCreateOrConnectWithoutPerformInput = {
+    where: JoinInWhereUniqueInput
+    create: XOR<JoinInCreateWithoutPerformInput, JoinInUncheckedCreateWithoutPerformInput>
+  }
+
+  export type JoinInCreateManyPerformInputEnvelope = {
+    data: JoinInCreateManyPerformInput | JoinInCreateManyPerformInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JoinInUpsertWithWhereUniqueWithoutPerformInput = {
+    where: JoinInWhereUniqueInput
+    update: XOR<JoinInUpdateWithoutPerformInput, JoinInUncheckedUpdateWithoutPerformInput>
+    create: XOR<JoinInCreateWithoutPerformInput, JoinInUncheckedCreateWithoutPerformInput>
+  }
+
+  export type JoinInUpdateWithWhereUniqueWithoutPerformInput = {
+    where: JoinInWhereUniqueInput
+    data: XOR<JoinInUpdateWithoutPerformInput, JoinInUncheckedUpdateWithoutPerformInput>
+  }
+
+  export type JoinInUpdateManyWithWhereWithoutPerformInput = {
+    where: JoinInScalarWhereInput
+    data: XOR<JoinInUpdateManyMutationInput, JoinInUncheckedUpdateManyWithoutPerformInput>
+  }
+
   export type MemberCreateWithoutJoinInInput = {
     fullname: string
     type?: $Enums.Type
@@ -6772,41 +6807,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
   }
 
-  export type JoinInCreateWithoutPerformInput = {
-    member?: MemberCreateNestedOneWithoutJoinInInput
-  }
-
-  export type JoinInUncheckedCreateWithoutPerformInput = {
-    id?: number
-    memberId?: number | null
-  }
-
-  export type JoinInCreateOrConnectWithoutPerformInput = {
-    where: JoinInWhereUniqueInput
-    create: XOR<JoinInCreateWithoutPerformInput, JoinInUncheckedCreateWithoutPerformInput>
-  }
-
-  export type JoinInCreateManyPerformInputEnvelope = {
-    data: JoinInCreateManyPerformInput | JoinInCreateManyPerformInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type JoinInUpsertWithWhereUniqueWithoutPerformInput = {
-    where: JoinInWhereUniqueInput
-    update: XOR<JoinInUpdateWithoutPerformInput, JoinInUncheckedUpdateWithoutPerformInput>
-    create: XOR<JoinInCreateWithoutPerformInput, JoinInUncheckedCreateWithoutPerformInput>
-  }
-
-  export type JoinInUpdateWithWhereUniqueWithoutPerformInput = {
-    where: JoinInWhereUniqueInput
-    data: XOR<JoinInUpdateWithoutPerformInput, JoinInUncheckedUpdateWithoutPerformInput>
-  }
-
-  export type JoinInUpdateManyWithWhereWithoutPerformInput = {
-    where: JoinInScalarWhereInput
-    data: XOR<JoinInUpdateManyMutationInput, JoinInUncheckedUpdateManyWithoutPerformInput>
-  }
-
   export type CheckInCreateManyMemberInput = {
     id?: number
     note?: string | null
@@ -6890,13 +6890,13 @@ export namespace Prisma {
      */
     export type CheckInArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CheckInDefaultArgs<ExtArgs>
     /**
-     * @deprecated Use JoinInDefaultArgs instead
-     */
-    export type JoinInArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JoinInDefaultArgs<ExtArgs>
-    /**
      * @deprecated Use PerformDefaultArgs instead
      */
     export type PerformArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PerformDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JoinInDefaultArgs instead
+     */
+    export type JoinInArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JoinInDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

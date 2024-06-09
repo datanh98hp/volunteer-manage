@@ -24,21 +24,21 @@ CREATE TABLE "CheckIn" (
 );
 
 -- CreateTable
+CREATE TABLE "Perform" (
+    "id" SERIAL NOT NULL,
+    "name" VARCHAR(100) NOT NULL,
+    "description" VARCHAR(255) NOT NULL,
+
+    CONSTRAINT "Perform_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "JoinIn" (
     "id" SERIAL NOT NULL,
     "memberId" INTEGER,
     "perfomId" INTEGER,
 
     CONSTRAINT "JoinIn_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Perform" (
-    "id" SERIAL NOT NULL,
-    "name" VARCHAR(255) NOT NULL,
-    "description" VARCHAR(250) NOT NULL,
-
-    CONSTRAINT "Perform_pkey" PRIMARY KEY ("id")
 );
 
 -- AddForeignKey
