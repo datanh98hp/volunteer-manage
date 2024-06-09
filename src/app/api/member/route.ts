@@ -1,9 +1,10 @@
 
-import client from "@/lib/prismaClient";
+
+import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+const prisma = new PrismaClient()
 
 export async function GET(request: NextRequest) {
-    const prisma = await client();
 
     const data = await prisma.member.findMany({})
 
@@ -12,9 +13,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
 
-    const prisma = await client();
+    // const prisma = await client();
 
-    const data = await prisma.member.findMany({})
+    // const data = await prisma.member.findMany({})
 
-    return new NextResponse(JSON.stringify(data))
+    // return new NextResponse(JSON.stringify(data))
 }
