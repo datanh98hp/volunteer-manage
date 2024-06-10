@@ -1,21 +1,53 @@
 
 
 import { PrismaClient } from "@prisma/client";
-import { NextRequest, NextResponse } from "next/server";
 const prisma = new PrismaClient()
 
-export async function GET(request: NextRequest) {
+export async function GET(request: Request) {
 
-    const data = await prisma.member.findMany({})
+    // const { 
+    //     page:+page,
+    //     num_per_page,
+    //     limit,
+    //     keyword
+    //  } = request.json()
 
-    return new NextResponse(JSON.stringify(data))
+    const data = await prisma.member.findMany({
+        orderBy: {
+            createdAt: 'desc',
+        },
+        include: {
+            JoinIn: {
+                include: {
+                    perform: true
+                }
+            },
+            CheckIn: true
+        }
+    })
+
+    return Response.json(data)
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
 
-    // const prisma = await client();
+    const data = await request.json()
 
-    // const data = await prisma.member.findMany({})
+    console.log(data)
+    try {
+        const newItem = await prisma.member.create({
+            data
+        });
+        if (newItem.id) {
+            return new Response(JSON.stringify(data), {
+                status: 200,
+            })
+        } else {
+            return new Response(JSON.stringify({ error: 'Something went wrong' }), { status: 500 })
+        }
 
-    // return new NextResponse(JSON.stringify(data))
+    } catch (error: any) {
+        return new Response(JSON.stringify({ error: error.message }), { status: 500 })
+    }
+
 }
