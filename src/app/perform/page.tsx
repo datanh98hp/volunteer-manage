@@ -9,7 +9,7 @@ async function getData() {
   //   `${baseURL || process.env.API_BASE_URIF}/api/perform`
   // );
   const data = await fetch(
-    `${baseURL || process.env.API_BASE_URI}/api/perform`
+    `${process.env.API_BASE_URI}/api/perform`
   );
   const dataJson = await data.json();
   return dataJson;
