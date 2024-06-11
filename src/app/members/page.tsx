@@ -1,4 +1,5 @@
-import { columns } from "@/components/custome/DatatableContainer/columns";
+
+import { columns } from "@/components/custome/DatatableContainer/columns-member";
 import { DataTable } from "@/components/custome/DatatableContainer/data-table";
 import { headers } from "next/headers";
 import React from "react";
@@ -20,8 +21,8 @@ export default async function PerformPage() {
   const data = await getDataMembers();
 
   return (
-    <div>
-      <DataTable columns={columns} data={data} />
+    <div className="w-full">
+      <DataTable columns={columns} data={data} filterByKey="fullname" />
     </div>
   );
 }
