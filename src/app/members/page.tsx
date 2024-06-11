@@ -6,7 +6,7 @@ import React from "react";
 export const metadata = {
   title: "Members",
 };
-export async function getDataMembers() {
+async function getDataMembers() {
   const baseURL = headers().get("referer")?.split("/").slice(0, 3).join("/");
   const res = await fetch(`${baseURL}/api/member`);
   // const res = await fetch(`${process.env.API_BASE_URI}/api/member`);
