@@ -122,9 +122,7 @@ export const columns: ColumnDef<Perform>[] = [
                         <TableHead className="text-center hidden md:block">
                           Full name
                         </TableHead>
-                        <TableHead className="text-center">
-                          Full name
-                        </TableHead>
+                        <TableHead className="text-center">Full name</TableHead>
                         <TableHead>Type</TableHead>
                         <TableHead className="text-center">Class</TableHead>
                         <TableHead className="text-center">School</TableHead>
@@ -142,9 +140,7 @@ export const columns: ColumnDef<Perform>[] = [
                           <TableCell className="text-center">
                             {item.member.class}
                           </TableCell>
-                          <TableCell className="">
-                            {item.member.type}
-                          </TableCell>
+                          <TableCell className="">{item.member.type}</TableCell>
                           <TableCell className="text-center">
                             {item.member.school}
                           </TableCell>
