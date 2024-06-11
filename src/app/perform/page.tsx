@@ -1,9 +1,11 @@
 import { columns } from "@/components/custome/DatatableContainer/columns";
 import { DataTable } from "@/components/custome/DatatableContainer/data-table";
+import { headers } from "next/headers";
 import React from "react";
 
-export async function getData() {
-  const data = await fetch("http://localhost:3000/api/member");
+async function getData() {
+  const baseURL = headers().get("referer")?.split("/").slice(0, 3).join("/");
+  const data = await fetch(`${baseURL}/api/member`);
   const dataJson = await data.json();
   return dataJson;
 }
