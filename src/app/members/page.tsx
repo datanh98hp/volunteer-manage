@@ -1,4 +1,3 @@
-
 import { columns } from "@/components/custome/DatatableContainer/columns-member";
 import { DataTable } from "@/components/custome/DatatableContainer/data-table";
 import { headers } from "next/headers";
@@ -8,7 +7,8 @@ export const metadata = {
   title: "Members",
 };
 async function getDataMembers() {
-  const baseURL = headers().get("referer")?.split("/").slice(0, 3).join("/");
+  const referer = headers().get("referer");
+  const baseURL = referer?.split("/")[0] + "//" + referer?.split("/")[2];
   const res = await fetch(`${baseURL}/api/member`);
   // const res = await fetch(`${process.env.API_BASE_URI}/api/member`);
   if (!res.ok) {
@@ -22,7 +22,7 @@ export default async function PerformPage() {
 
   return (
     <div className="w-full">
-      <DataTable columns={columns} data={data} filterByKey="fullname" />
+      <DataTable columns={columns} data={data || []} filterByKey="fullname" />
     </div>
   );
 }
