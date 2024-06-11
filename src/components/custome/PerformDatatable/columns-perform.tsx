@@ -114,99 +114,42 @@ export const columns: ColumnDef<Perform>[] = [
             <DrawerTrigger>List Join In</DrawerTrigger>
             <DrawerContent className="fixed h-[80%] bottom-0 left-0 right-0">
               <DrawerHeader>
-                <ScrollArea className="h-[70%] w-fit rounded-md">
+                <ScrollArea className="h-[70%] w-full md:flex md:text-center  rounded-md">
                   <Table className="text-sm">
                     <TableCaption>A list of Join in.</TableCaption>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="w-[30%]">Full name</TableHead>
+                        <TableHead className="text-center hidden md:block">
+                          Full name
+                        </TableHead>
+                        <TableHead className="text-center">
+                          Full name
+                        </TableHead>
                         <TableHead>Type</TableHead>
-                        <TableHead className="">Class</TableHead>
-                        <TableHead className="">School</TableHead>
+                        <TableHead className="text-center">Class</TableHead>
+                        <TableHead className="text-center">School</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {data.JoinIn.map((item, index) => (
                         <TableRow key={index}>
-                          <TableCell>{item.member.fullname}</TableCell>
-                          <TableCell>{item.member.class}</TableCell>
-                          <TableCell className="">{item.member.type}</TableCell>
+                          <TableCell className="hidden md:block">
+                            {item.member.id}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {item.member.fullname}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {item.member.class}
+                          </TableCell>
                           <TableCell className="">
+                            {item.member.type}
+                          </TableCell>
+                          <TableCell className="text-center">
                             {item.member.school}
                           </TableCell>
                         </TableRow>
                       ))}
-                      {data.JoinIn.map((item, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{item.member.fullname}</TableCell>
-                          <TableCell>{item.member.class}</TableCell>
-                          <TableCell className="">{item.member.type}</TableCell>
-                          <TableCell className="">
-                            {item.member.school}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                      {data.JoinIn.map((item, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{item.member.fullname}</TableCell>
-                          <TableCell>{item.member.class}</TableCell>
-                          <TableCell className="">{item.member.type}</TableCell>
-                          <TableCell className="">
-                            {item.member.school}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                      {data.JoinIn.map((item, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{item.member.fullname}</TableCell>
-                          <TableCell>{item.member.class}</TableCell>
-                          <TableCell className="">{item.member.type}</TableCell>
-                          <TableCell className="">
-                            {item.member.school}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                      {data.JoinIn.map((item, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{item.member.fullname}</TableCell>
-                          <TableCell>{item.member.class}</TableCell>
-                          <TableCell className="">{item.member.type}</TableCell>
-                          <TableCell className="">
-                            {item.member.school}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                      {data.JoinIn.map((item, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{item.member.fullname}</TableCell>
-                          <TableCell>{item.member.class}</TableCell>
-                          <TableCell className="">{item.member.type}</TableCell>
-                          <TableCell className="">
-                            {item.member.school}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                      {data.JoinIn.map((item, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{item.member.fullname}</TableCell>
-                          <TableCell>{item.member.class}</TableCell>
-                          <TableCell className="">{item.member.type}</TableCell>
-                          <TableCell className="">
-                            {item.member.school}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                      {data.JoinIn.map((item, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{item.member.fullname}</TableCell>
-                          <TableCell>{item.member.class}</TableCell>
-                          <TableCell className="">{item.member.type}</TableCell>
-                          <TableCell className="">
-                            {item.member.school}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                      
                     </TableBody>
                   </Table>
                 </ScrollArea>

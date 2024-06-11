@@ -6,7 +6,7 @@ import React from "react";
 
 async function getData() {
   const baseURL = headers().get("referer")?.split("/").slice(0, 3).join("/");
-  const data = await fetch(`${baseURL}/api/perform`);
+  const data = await fetch(`${baseURL|| process.env.API_BASE_URIF}/api/perform`);
   const dataJson = await data.json();
   return dataJson;
 }
