@@ -13,10 +13,9 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 export type Member = {
   id: string;
-  fullname: string;
-  type: "CHILDREND" | "YOUTH";
-  class: string;
-  school: string;
+  note: string;
+  member: Array<any>;
+  createdAt: string;
 };
 
 export const columns: ColumnDef<Member>[] = [
@@ -30,9 +29,9 @@ export const columns: ColumnDef<Member>[] = [
               table.getIsAllPageRowsSelected() ||
               (table.getIsSomePageRowsSelected() && "indeterminate")
             }
-            onCheckedChange={(value) => {
-              table.toggleAllPageRowsSelected(!!value);
-            }}
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
             aria-label="Select all"
           />
           {/* <Button
@@ -45,45 +44,39 @@ export const columns: ColumnDef<Member>[] = [
         </div>
       );
     },
-
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+  },
+  {
+    accessorKey: "note",
+    header: "Note",
+  },
+  {
+    accessorKey: "member",
+    header: "Member",
     cell: ({ row }) => {
-      if (row.getIsSelected()) {
-        
-      }
-      return (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      );
+      const member = row.original.member as any;
+      return <div>{member.fullname}</div>;
     },
   },
   {
-    accessorKey: "fullname",
-    header: "Fullname",
-  },
-  {
-    accessorKey: "type",
-    header: "Type",
-  },
-  {
-    accessorKey: "class",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Class
+          Checkin At
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-  },
-  {
-    accessorKey: "school",
-    header: "School",
   },
   {
     accessorKey: "actions",
@@ -101,16 +94,15 @@ export const columns: ColumnDef<Member>[] = [
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
+              <span className="sr-only">Detail </span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(member.id)}
             >
-              Copy payment ID
+              Copy ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View details</DropdownMenuItem>

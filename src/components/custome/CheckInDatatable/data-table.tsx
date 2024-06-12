@@ -16,7 +16,9 @@ import {
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -46,16 +48,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { ScrollArea } from "@/components/ui/scroll-area";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filterByKey: string;
+  dataMember:[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   filterByKey,
+  dataMember,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -83,11 +98,10 @@ export function DataTable<TData, TValue>({
       rowSelection,
     },
   });
-  //get rows is selected
-  console.log(table.getFilteredSelectedRowModel().rows[0]?.original);
+
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 outline-none">
         <Input
           placeholder={`Search by ${filterByKey}`}
           value={
@@ -96,8 +110,66 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn(filterByKey)?.setFilterValue(event.target.value)
           }
-          className="w-50 outline-none"
+          className="w-50 outline-none outline-[0px]"
         />
+        <Drawer>
+          <DrawerTrigger>Open</DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <h3 className="text-xl font-bold">Checkin</h3>
+              <DrawerDescription>
+                <div className="flex w-full justify-center bg-slate-800">
+                  <ScrollArea className="h-[800px] w-[80%] rounded-md border">
+                    <Table>
+                      <TableCaption>
+                        A list of member to checkin.
+                      </TableCaption>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-[100px]">#</TableHead>
+                          <TableHead>Type</TableHead>
+                          <TableHead>Method</TableHead>
+                          <TableHead className="text-right">Amount</TableHead>
+                          <TableHead className="text-right">Amount</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {dataMember.map((member: any, index: number) => (
+                          <TableRow key={member.id}>
+                            <TableCell className="font-medium">
+                              {member.id}
+                            </TableCell>
+                            <TableCell>{member.type}</TableCell>
+                            <TableCell>{member.class}</TableCell>
+                            <TableCell>{member.school}</TableCell>
+                            <TableCell className="text-right">
+                              {member.fullname}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                      {/* <TableFooter>
+                        <TableRow>
+                          <TableCell colSpan={3}>Total</TableCell>
+                          <TableCell className="text-right">
+                            $2,500.00
+                          </TableCell>
+                        </TableRow>
+                      </TableFooter> */}
+                    </Table>
+                  </ScrollArea>
+                </div>
+              </DrawerDescription>
+            </DrawerHeader>
+            {/* <DrawerFooter>
+              <Button>Submit</Button>
+              <DrawerClose>
+                <Button variant="outline">Cancel</Button>
+              </DrawerClose>
+            </DrawerFooter> */}
+          </DrawerContent>
+        </Drawer>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="ml-auto h-8 lg:flex">
