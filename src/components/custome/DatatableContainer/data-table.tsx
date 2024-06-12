@@ -91,7 +91,7 @@ export function DataTable<TData, TValue>({
     const listIdMember = selectRows.map((row: any) => row.original.id);
     console.log("ID MEMBER",listIdMember);
     //call api insert data checkin
-    await fetch(`${process.env.API_URI_PROD}/api/checkin`, {
+    await fetch(`/api/checkin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
