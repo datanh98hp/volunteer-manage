@@ -106,8 +106,7 @@ export const columns: ColumnDef<Perform>[] = [
     header: "JoinIn",
     cell: ({ row }) => {
       const data = row.original;
-      console.log("Data cell", data.JoinIn[0].member.fullname);
-
+      //console.log("Data cell", data);
       return (
         <div className="">
           <Drawer direction="bottom">
@@ -129,7 +128,7 @@ export const columns: ColumnDef<Perform>[] = [
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {data.JoinIn.map((item, index) => (
+                      {data?.JoinIn.map((item, index) => (
                         <TableRow key={index}>
                           <TableCell className="hidden md:block">
                             {item.member.id}

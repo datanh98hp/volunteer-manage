@@ -10,7 +10,7 @@ export const metadata = {
 async function getDataMembers() {
   const referer = headers().get("referer");
   const baseURL = referer?.split("/")[0] + "//" + referer?.split("/")[2];
-  const res = await fetch(`${baseURL || process.env.API_BASE_URI}/api/member`);
+  const res = await fetch(`${baseURL || process.env.API_URI_PROD}/api/member`);
   // const res = await axiosClient(`/api/member`);
   if (!res.ok) {
     throw new Error("Failed to fetch data");

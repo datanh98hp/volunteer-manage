@@ -5,11 +5,9 @@ import React from "react";
 
 async function getData() {
   const referer = headers().get("referer");
-  const baseURL = referer?.split("/")[0] + "//"+referer?.split("/")[2];
+  const baseURL = referer?.split("/")[0] + "//" + referer?.split("/")[2];
   // console.log(baseURL, process.env.API_BASE_URI);
-  const res = await fetch(
-    `${ baseURL|| process.env.API_BASE_URI}/api/checkin`
-  );
+  const res = await fetch(`${process.env.API_URI_PROD}/api/perform`);
   // const data = await fetch(
   //   `${process.env.API_BASE_URI}/api/perform`
   // );
@@ -19,6 +17,7 @@ async function getData() {
 
 export default async function PerformPage() {
   const data = await getData();
+  console.log(data);
   return (
     <div>
       <h1>Perform</h1>

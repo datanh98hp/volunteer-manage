@@ -11,7 +11,7 @@ async function getData() {
   const referer = headers().get("referer");
   const baseURL = referer?.split("/")[0] + "//" + referer?.split("/")[2];
   // const res = await axiosClient(`/api/checkin`);
-  const res = await fetch(`${process.env.API_BASE_URI}/api/checkin`);
+  const res = await fetch(`${process.env.API_URI_PROD}/api/checkin`);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
