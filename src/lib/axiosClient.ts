@@ -1,13 +1,7 @@
 import axios from "axios";
-import { headers } from "next/headers";
-const referer = headers().get("referer");
 
-const baseURL = referer?.split("/")[0] + "//" + referer?.split("/")[2];
-// console.log("ssssssssss",baseURL)
-// const origin = (window as any).location.origin
-// console.log(origin)
 const axiosClient = axios.create({
-    baseURL: baseURL,
+    baseURL: process.env.API_BASE_URI,
     headers: {
         "Content-Type": "application/json",
     },

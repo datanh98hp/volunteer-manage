@@ -11,14 +11,14 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-export type Member = {
+export type CheckIn = {
   id: string;
   note: string;
-  member: Array<any>;
+  member: any;
   createdAt: string;
 };
 
-export const columns: ColumnDef<Member>[] = [
+export const columns: ColumnDef<CheckIn>[] = [
   {
     accessorKey: "id",
     header: ({ table }) => {
@@ -56,14 +56,7 @@ export const columns: ColumnDef<Member>[] = [
     accessorKey: "note",
     header: "Note",
   },
-  {
-    accessorKey: "member",
-    header: "Member",
-    cell: ({ row }) => {
-      const member = row.original.member as any;
-      return <div>{member.fullname}</div>;
-    },
-  },
+
   {
     accessorKey: "createdAt",
     header: ({ column }) => {
@@ -76,6 +69,13 @@ export const columns: ColumnDef<Member>[] = [
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+  },
+  {
+    accessorKey: "member",
+    header: "Member",
+    cell: ({ row }) => {
+      return <>{row.original.member.fullname}</>;
     },
   },
   {

@@ -8,7 +8,7 @@ async function getData() {
   const baseURL = referer?.split("/")[0] + "//"+referer?.split("/")[2];
   // console.log(baseURL, process.env.API_BASE_URI);
   const res = await fetch(
-    `${ baseURL|| process.env.API_BASE_URI}/api/perform`
+    `${ baseURL|| process.env.API_BASE_URI}/api/checkin`
   );
   // const data = await fetch(
   //   `${process.env.API_BASE_URI}/api/perform`
