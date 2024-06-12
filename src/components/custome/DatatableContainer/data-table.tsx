@@ -84,10 +84,24 @@ export function DataTable<TData, TValue>({
     },
   });
   //get rows is selected
-  console.log(table.getFilteredSelectedRowModel().rows[0]?.original);
+  // console.log("SELECTED row ", table.getFilteredSelectedRowModel().rows);
+  const handleCheckIn = async () => {
+    // alert("CHECK IN");
+    const selectRows = table.getFilteredSelectedRowModel().rows;
+    const listIdMember = selectRows.map((row: any) => row.original.id);
+    console.log("ID MEMBER",listIdMember);
+    //call api insert data checkin
+    await fetch(`${process.env.API_URI_PROD}/api/checkin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(listIdMember),
+    });
+  };
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center gap-2 py-4">
         <Input
           placeholder={`Search by ${filterByKey}`}
           value={
@@ -98,9 +112,16 @@ export function DataTable<TData, TValue>({
           }
           className="w-50 outline-none"
         />
+        <Button variant="outline" onClick={handleCheckIn}>
+          CheckIn
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="ml-auto h-8 lg:flex">
+            <Button
+              variant="outline"
+              size="sm"
+              className="ml-auto h-10 lg:flex"
+            >
               <GripHorizontal className="mr-2 h-4 w-4" />
               View
             </Button>
