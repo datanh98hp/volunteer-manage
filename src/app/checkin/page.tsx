@@ -21,13 +21,12 @@ async function getData() {
 async function getDataMember() {
   // const referer = headers().get("referer");
   // const baseURL = referer?.split("/")[0] + "//" + referer?.split("/")[2];
-  const res = await axiosClient(`/api/member`);
-
-  if (!res.data) {
-    throw new Error("Failed to fetch data");
-  }
-  const data = await res.data;
-  return data;
+ const res = await fetch(`${process.env.API_URI_PROD}/api/member`);
+ if (!res.ok) {
+   throw new Error("Failed to fetch data");
+ }
+ const data = await res.json();
+ return data;
 }
 export default async function CheckinListPage() {
   const data = await getData();
