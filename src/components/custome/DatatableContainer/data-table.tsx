@@ -108,6 +108,7 @@ export function DataTable<TData, TValue>({
   //get rows is selected
   // console.log("SELECTED row ", table.getFilteredSelectedRowModel().rows);
   const [exportType, setExportType] = React.useState("XLS");
+  const { toast } = useToast();
   const handleCheckIn = async () => {
     // alert("CHECK IN");
     const selectRows = table.getFilteredSelectedRowModel().rows;
@@ -120,6 +121,10 @@ export function DataTable<TData, TValue>({
         "Content-Type": "application/json",
       },
       body: JSON.stringify(listIdMember),
+    });
+    toast({
+      title: "Success",
+      description: "Check in successfully",
     });
   };
 
