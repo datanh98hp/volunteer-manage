@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/provider/theme-provider";
 import { HeaderNavigationMenu } from "@/components/common/HeaderNav";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
             <HeaderNavigationMenu />
             <div>{children}</div>
           </div>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -112,7 +112,7 @@ export function DataTable<TData, TValue>({
           }
           className="w-50 outline-none outline-[0px]"
         />
-        <Drawer>
+        {/* <Drawer>
           <DrawerTrigger>Open</DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
@@ -148,27 +148,13 @@ export function DataTable<TData, TValue>({
                           </TableRow>
                         ))}
                       </TableBody>
-                      {/* <TableFooter>
-                        <TableRow>
-                          <TableCell colSpan={3}>Total</TableCell>
-                          <TableCell className="text-right">
-                            $2,500.00
-                          </TableCell>
-                        </TableRow>
-                      </TableFooter> */}
                     </Table>
                   </ScrollArea>
                 </div>
               </DrawerDescription>
             </DrawerHeader>
-            {/* <DrawerFooter>
-              <Button>Submit</Button>
-              <DrawerClose>
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
-            </DrawerFooter> */}
           </DrawerContent>
-        </Drawer>
+        </Drawer> */}
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

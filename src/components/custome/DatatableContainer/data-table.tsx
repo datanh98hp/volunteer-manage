@@ -38,6 +38,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
   GripHorizontal,
+  PlusCircle,
 } from "lucide-react";
 import {
   Select,
@@ -46,12 +47,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filterByKey: string;
 }
-
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast, useToast } from "@/components/ui/use-toast";
+import exportFromJSON from "export-from-json";
 export function DataTable<TData, TValue>({
   columns,
   data,
@@ -85,11 +107,12 @@ export function DataTable<TData, TValue>({
   });
   //get rows is selected
   // console.log("SELECTED row ", table.getFilteredSelectedRowModel().rows);
+  const [exportType, setExportType] = React.useState("XLS");
   const handleCheckIn = async () => {
     // alert("CHECK IN");
     const selectRows = table.getFilteredSelectedRowModel().rows;
     const listIdMember = selectRows.map((row: any) => row.original.id);
-    console.log("ID MEMBER",listIdMember);
+    console.log("ID MEMBER", listIdMember);
     //call api insert data checkin
     await fetch(`/api/checkin`, {
       method: "POST",
@@ -99,6 +122,65 @@ export function DataTable<TData, TValue>({
       body: JSON.stringify(listIdMember),
     });
   };
+
+  const formSchema = z.object({
+    fullname: z.string().min(2).max(50),
+    type: z.string().min(2).max(50),
+    class: z.string().min(2).max(4),
+    school: z.string().min(2).max(150),
+  });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      fullname: "",
+      type: "",
+      class: "",
+      school: "",
+    },
+  });
+  function exportDataHandler(value: string) {
+    console.log("EXPORT DATA");
+    setExportType(value);
+    const selectRows = table.getFilteredSelectedRowModel().rows;
+    const listMember = selectRows.map((row: any) => row.original);
+    console.log(listMember);
+    let typeExport;
+    switch (value) {
+      case "txt":
+        typeExport = exportFromJSON.types.txt;
+        break;
+      case "csv":
+        typeExport = exportFromJSON.types.csv;
+        break;
+      case "xls":
+        typeExport = exportFromJSON.types.xls;
+        break;
+      default:
+        break;
+    }
+    exportFromJSON({
+      data: listMember,
+      fileName: `list-member-export-${new Date().getTime()}`,
+      exportType: typeExport,
+    });
+  }
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+    await fetch(`/api/member`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    toast({
+      title: "Success",
+      color: "green",
+      description: "Member added successfully",
+    });
+  }
   return (
     <div>
       <div className="flex items-center gap-2 py-4">
@@ -110,20 +192,152 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn(filterByKey)?.setFilterValue(event.target.value)
           }
-          className="w-50 outline-none"
+          className="md:w-96 w-32 outline-none"
         />
-        <Button variant="outline" onClick={handleCheckIn}>
+        <Button variant="outline" onClick={handleCheckIn} className="w-16">
           CheckIn
         </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <div className="border rounded-lg p-2">
+              <PlusCircle className="h-5 w-5" />
+            </div>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="text-center my-6">
+                Add new member
+              </DialogTitle>
+              <DialogDescription>
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-4"
+                  >
+                    <FormField
+                      control={form.control}
+                      name="fullname"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Full name</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Full name"
+                              className="outline-none"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            {/* This is your public display name. */}
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="flex w-full justify-between">
+                      <FormField
+                        control={form.control}
+                        name="type"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Type</FormLabel>
+                            <FormControl>
+                              {/* <Input placeholder="shadcn" {...field} /> */}
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                                {...field}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent className="outline-none">
+                                  <SelectItem value="CHILDREND">
+                                    CHILDREND
+                                  </SelectItem>
+                                  <SelectItem value="YOUTH">YOUTH</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                            <FormDescription>
+                              {/* This is your public display name. */}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="class"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Class</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Class ..."
+                                className="w-20 outline-none"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              {/* This is your public display name. */}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="school"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>School</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="School ..."
+                                className="w-50"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              {/* This is your public display name. */}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <Button type="submit" variant={"ghost"} className="w-full">
+                      Create now
+                    </Button>
+                  </form>
+                </Form>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+        {/* <div className="mx-4">Epxort</div> */}
+        <Select onValueChange={(value) => exportDataHandler(value)}>
+          <SelectTrigger className="w-[150px]">
+            <SelectValue placeholder="Export to " />
+          </SelectTrigger>
+          <SelectContent className="w-[80px] outline-none">
+            <SelectItem value="txt">TXT</SelectItem>
+            <SelectItem value="csv">CSV</SelectItem>
+            <SelectItem value="xls">XLS</SelectItem>
+          </SelectContent>
+        </Select>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
               size="sm"
-              className="ml-auto h-10 lg:flex"
+              className="ml-auto text-center h-10 lg:flex"
             >
-              <GripHorizontal className="mr-2 h-4 w-4" />
-              View
+              <GripHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-[150px]">

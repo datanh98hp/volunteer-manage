@@ -16,14 +16,14 @@ export async function GET(request: Request) {
         orderBy: {
             createdAt: 'desc',
         },
-        include: {
-            JoinIn: {
-                include: {
-                    perform: true
-                }
-            },
-            CheckIn: true
-        }
+        // include: {
+        //     JoinIn: {
+        //         include: {
+        //             perform: true
+        //         }
+        //     },
+        //     CheckIn: true
+        // }
     })
 
     return Response.json(data)
@@ -32,9 +32,8 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
 
     const data = await request.json()
-
-    console.log(data)
-    try {
+    console.log("Request member data :",data)
+    try {   
         const newItem = await prisma.member.create({
             data
         });
