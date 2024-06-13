@@ -11,6 +11,7 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { toast } from "@/components/ui/use-toast";
 export type Member = {
   id: string;
   fullname: string;
@@ -35,20 +36,12 @@ export const columns: ColumnDef<Member>[] = [
             }}
             aria-label="Select all"
           />
-          {/* <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            #
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button> */}
         </div>
       );
     },
 
     cell: ({ row }) => {
       if (row.getIsSelected()) {
-        
       }
       return (
         <Checkbox
@@ -97,6 +90,18 @@ export const columns: ColumnDef<Member>[] = [
     cell: ({ row }) => {
       const member = row.original;
       // console.log(member);
+      const { id } = member;
+      const handleDelete = async () => {
+        await fetch(`/api/member/${id}`, {
+          method: "DELETE",
+        });
+
+        row.getCanExpand() && row.toggleExpanded();
+        toast({
+          title: "Success",
+          description: "Delete member successfully",
+        });
+      };
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -110,10 +115,10 @@ export const columns: ColumnDef<Member>[] = [
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(member.id)}
             >
-              Copy payment ID
+              Copy ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View details</DropdownMenuItem>
+            <DropdownMenuItem onClick={()=>handleDelete()}>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -33,12 +33,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  CheckCheckIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronsLeft,
   ChevronsRight,
   GripHorizontal,
   PlusCircle,
+  TrashIcon,
 } from "lucide-react";
 import {
   Select,
@@ -74,6 +76,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast, useToast } from "@/components/ui/use-toast";
 import exportFromJSON from "export-from-json";
+import { useRouter } from "next/navigation";
 export function DataTable<TData, TValue>({
   columns,
   data,
@@ -109,6 +112,7 @@ export function DataTable<TData, TValue>({
   // console.log("SELECTED row ", table.getFilteredSelectedRowModel().rows);
   const [exportType, setExportType] = React.useState("XLS");
   const { toast } = useToast();
+  const router = useRouter();
   const handleCheckIn = async () => {
     // alert("CHECK IN");
     const selectRows = table.getFilteredSelectedRowModel().rows;
@@ -180,108 +184,79 @@ export function DataTable<TData, TValue>({
       },
       body: JSON.stringify(values),
     });
+
+    // reset form
+    form.reset();
+    router.refresh();
     toast({
       title: "Success",
       color: "green",
       description: "Member added successfully",
     });
   }
+
+  async function handleDeteles(){
+    const selectRows = table.getFilteredSelectedRowModel().rows;
+    const listId = selectRows.map((row: any) => row.original.id);
+    // console.log("LIST ID be delete ---",listId);
+    await fetch(`/api/member`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(listId),
+    });
+    router.refresh();
+    toast({
+      title: "Success",
+      color: "green",
+      description: "Delete successfully",
+    });
+  }
   return (
     <div>
-      <div className="flex items-center gap-2 py-4">
-        <Input
-          placeholder={`Search by ${filterByKey}`}
-          value={
-            (table.getColumn(filterByKey)?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn(filterByKey)?.setFilterValue(event.target.value)
-          }
-          className="md:w-96 w-32 outline-none"
-        />
-        <Button variant="outline" onClick={handleCheckIn} className="w-16">
-          CheckIn
-        </Button>
-        <Dialog>
-          <DialogTrigger asChild>
-            <div className="border rounded-lg p-2">
-              <PlusCircle className="h-5 w-5" />
-            </div>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="text-center my-6">
-                Add new member
-              </DialogTitle>
-              <DialogDescription>
-                <Form {...form}>
-                  <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-4"
-                  >
-                    <FormField
-                      control={form.control}
-                      name="fullname"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Full name</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="Full name"
-                              className="outline-none"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            {/* This is your public display name. */}
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <div className="flex w-full justify-between">
+      <div className="flex items-center justify-between gap-2 py-4">
+        <div className="flex items-center gap-2">
+          <Input
+            placeholder={`Search by ${filterByKey}`}
+            value={
+              (table.getColumn(filterByKey)?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              table.getColumn(filterByKey)?.setFilterValue(event.target.value)
+            }
+            className="md:w-60 w-32 outline-none"
+          />
+          <Button variant="outline" onClick={handleCheckIn} className="w-12">
+            <CheckCheckIcon className="h-4 w-" />
+          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <div className="border rounded-lg p-2">
+                <PlusCircle className="h-5 w-5" />
+              </div>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle className="text-center my-6">
+                  Add new member
+                </DialogTitle>
+                <DialogDescription>
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="space-y-4"
+                    >
                       <FormField
                         control={form.control}
-                        name="type"
+                        name="fullname"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Type</FormLabel>
-                            <FormControl>
-                              {/* <Input placeholder="shadcn" {...field} /> */}
-                              <Select
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                {...field}
-                              >
-                                <SelectTrigger>
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent className="outline-none">
-                                  <SelectItem value="CHILDREND">
-                                    CHILDREND
-                                  </SelectItem>
-                                  <SelectItem value="YOUTH">YOUTH</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
-                            <FormDescription>
-                              {/* This is your public display name. */}
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="class"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Class</FormLabel>
+                            <FormLabel>Full name</FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="Class ..."
-                                className="w-20 outline-none"
+                                placeholder="Full name"
+                                className="outline-none"
                                 {...field}
                               />
                             </FormControl>
@@ -292,50 +267,107 @@ export function DataTable<TData, TValue>({
                           </FormItem>
                         )}
                       />
-                      <FormField
-                        control={form.control}
-                        name="school"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>School</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="School ..."
-                                className="w-50"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormDescription>
-                              {/* This is your public display name. */}
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
 
-                    <Button type="submit" variant={"ghost"} className="w-full">
-                      Create now
-                    </Button>
-                  </form>
-                </Form>
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-        {/* <div className="mx-4">Epxort</div> */}
-        <Select onValueChange={(value) => exportDataHandler(value)}>
-          <SelectTrigger className="w-[150px]">
-            <SelectValue placeholder="Export to " />
-          </SelectTrigger>
-          <SelectContent className="w-[80px] outline-none">
-            <SelectItem value="txt">TXT</SelectItem>
-            <SelectItem value="csv">CSV</SelectItem>
-            <SelectItem value="xls">XLS</SelectItem>
-          </SelectContent>
-        </Select>
+                      <div className="flex w-full justify-between">
+                        <FormField
+                          control={form.control}
+                          name="type"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Type</FormLabel>
+                              <FormControl>
+                                {/* <Input placeholder="shadcn" {...field} /> */}
+                                <Select
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
+                                  {...field}
+                                >
+                                  <SelectTrigger>
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent className="outline-none">
+                                    <SelectItem value="CHILDREND">
+                                      CHILDREND
+                                    </SelectItem>
+                                    <SelectItem value="YOUTH">YOUTH</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </FormControl>
+                              <FormDescription>
+                                {/* This is your public display name. */}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="class"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Class</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="Class ..."
+                                  className="w-20 outline-none"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                {/* This is your public display name. */}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="school"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>School</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="School ..."
+                                  className="w-50"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                {/* This is your public display name. */}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
-        <DropdownMenu>
+                      <Button
+                        type="submit"
+                        variant={"ghost"}
+                        className="w-full"
+                      >
+                        Create now
+                      </Button>
+                    </form>
+                  </Form>
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+          {/* <div className="mx-4">Epxort</div> */}
+          <Select onValueChange={(value) => exportDataHandler(value)}>
+            <SelectTrigger className="w-[150px]">
+              <SelectValue placeholder="Export to " />
+            </SelectTrigger>
+            <SelectContent className="w-[80px] outline-none">
+              <SelectItem value="txt">TXT</SelectItem>
+              <SelectItem value="csv">CSV</SelectItem>
+              <SelectItem value="xls">XLS</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
@@ -370,7 +402,14 @@ export function DataTable<TData, TValue>({
                 );
               })}
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
+        <Button
+          variant="secondary"
+          className=""
+          onClick={() => handleDeteles()}
+        >
+          <TrashIcon className="h-4 w-4" />
+        </Button>
       </div>
 
       <div className="rounded-md border">

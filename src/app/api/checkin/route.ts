@@ -17,14 +17,14 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
 
     const data = await request.json()
-    console.log("Data request", data);
+    // console.log("Data request", data);
     const insertsData = data.map((item: any) => {
         return {
             note: `Checkout - ${item}`,
             memberId: item,
         }
     })
-    console.log("Data inserts", insertsData);
+    // console.log("Data inserts", insertsData);
     try {
         const newManyItems = await prisma.checkIn.createMany({
             data: insertsData,
@@ -40,5 +40,25 @@ export async function POST(request: Request) {
         }
     } catch (error: any) {
         return new Response(JSON.stringify({ error }), { status: 500 })
+    }
+}
+
+export async function DELETE(request: Request) {
+
+    const data = await request.json()
+    try {
+        const del = await prisma.checkIn.deleteMany({
+            where: {
+                id: {
+                    in: data
+                }
+            }
+        });
+        if (del.count < 1) {
+            return new Response(JSON.stringify({ error: 'Something went wrong' }), { status: 500 })
+        }
+        return Response.json({ message: 'success' }, { status: 200 })
+    } catch (error) {
+        return Response.json({ message: 'Record to delete does not exist.' }, { status: 500 })
     }
 }

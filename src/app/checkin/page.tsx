@@ -30,13 +30,13 @@ async function getDataMember() {
 }
 export default async function CheckinListPage() {
   const data = await getData();
-  const dataMember = await getDataMember();
+
   return (
     <div className="w-full">
       <DataTable
         columns={columns}
         data={data || []}
-        dataMember={dataMember || []}
+       
         filterByKey="createdAt"
       />
     </div>

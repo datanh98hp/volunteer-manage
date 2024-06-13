@@ -1,35 +1,16 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
-import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
+  DrawerTrigger
 } from "@/components/ui/drawer";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
 
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -39,7 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ScrollArea } from "@/components/ui/scroll-area";
 export type Perform = {
   id: string;
   name: string;
@@ -110,12 +90,12 @@ export const columns: ColumnDef<Perform>[] = [
       return (
         <div className="">
           <Drawer direction="bottom">
-            <DrawerTrigger>List Join In</DrawerTrigger>
+            <DrawerTrigger className="cursor-pointer  underline">Listing Join</DrawerTrigger>
             <DrawerContent className="fixed h-[80%] bottom-0 left-0 right-0">
               <DrawerHeader>
                 <ScrollArea className="h-[70%] w-full md:flex md:text-center  rounded-md">
                   <Table className="text-sm">
-                    <TableCaption>A list of Join in.</TableCaption>
+                    <TableCaption>list member Join in.</TableCaption>
                     <TableHeader>
                       <TableRow>
                         <TableHead className="text-center hidden md:block">

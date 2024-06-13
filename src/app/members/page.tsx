@@ -10,12 +10,13 @@ export const metadata = {
 async function getDataMembers() {
   const referer = headers().get("referer");
   const baseURL = referer?.split("/")[0] + "//" + referer?.split("/")[2];
-  const res = await fetch(`${baseURL || process.env.API_URI_PROD}/api/member`);
+  const res = await axiosClient.get("api/member");
   // const res = await axiosClient(`/api/member`);
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-  const data = await res.json();
+  // if (!res.ok) {
+  //   throw new Error("Failed to fetch data");
+  // }
+  // const data = await res.json();
+  const data = res.data;
   return data;
 }
 export default async function PerformPage() {

@@ -40,6 +40,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
   GripHorizontal,
+  TrashIcon,
 } from "lucide-react";
 import {
   Select,
@@ -59,18 +60,18 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filterByKey: string;
-  dataMember:[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   filterByKey,
-  dataMember,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -91,6 +92,15 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    enableMultiRemove: true,
+    meta: {
+      removeRow: (rowIndex: number) => {
+        console.log("remove");
+        const setFilterFunc = (old: Array<any>) =>
+          old.filter((_row: any, index: number) => index !== rowIndex);
+        data = setFilterFunc(data);
+      },
+    },
     state: {
       sorting,
       columnFilters,
@@ -98,7 +108,33 @@ export function DataTable<TData, TValue>({
       rowSelection,
     },
   });
+  const router = useRouter();
+  const [isClient, setIsClient] = React.useState(false);
 
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+  if (isClient === false) {
+    return null;
+  }
+
+  const handleDeleteRowSelected = async () => {
+    const rowSelected = table.getFilteredSelectedRowModel().rows;
+    const listId = rowSelected.map((row: any) => row.original.id);
+    console.log(rowSelected);
+    await fetch(`/api/checkin`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(listId),
+    });
+    router.refresh();
+    toast({
+      title: "Success",
+      description: "Deleted successfully",
+    });
+  };
   return (
     <div>
       <div className="flex items-center py-4 outline-none">
@@ -112,55 +148,17 @@ export function DataTable<TData, TValue>({
           }
           className="w-50 outline-none outline-[0px]"
         />
-        {/* <Drawer>
-          <DrawerTrigger>Open</DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <h3 className="text-xl font-bold">Checkin</h3>
-              <DrawerDescription>
-                <div className="flex w-full justify-center bg-slate-800">
-                  <ScrollArea className="h-[800px] w-[80%] rounded-md border">
-                    <Table>
-                      <TableCaption>
-                        A list of member to checkin.
-                      </TableCaption>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="w-[100px]">#</TableHead>
-                          <TableHead>Type</TableHead>
-                          <TableHead>Method</TableHead>
-                          <TableHead className="text-right">Amount</TableHead>
-                          <TableHead className="text-right">Amount</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {dataMember.map((member: any, index: number) => (
-                          <TableRow key={member.id}>
-                            <TableCell className="font-medium">
-                              {member.id}
-                            </TableCell>
-                            <TableCell>{member.type}</TableCell>
-                            <TableCell>{member.class}</TableCell>
-                            <TableCell>{member.school}</TableCell>
-                            <TableCell className="text-right">
-                              {member.fullname}
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </ScrollArea>
-                </div>
-              </DrawerDescription>
-            </DrawerHeader>
-          </DrawerContent>
-        </Drawer> */}
-
+        <Button
+          variant={"outline"}
+          className="ml-2"
+          onClick={() => handleDeleteRowSelected()}
+        >
+          <TrashIcon className="h-4 w-4" />
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="ml-auto h-8 lg:flex">
               <GripHorizontal className="mr-2 h-4 w-4" />
-              View
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-[150px]">
