@@ -50,6 +50,7 @@ import {
 } from "@/components/ui/select";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -181,9 +182,7 @@ export function DataTable<TData, TValue>({
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle className="my-6">
-                Add new member
-              </DialogTitle>
+              <DialogTitle className="my-6">Add new perform</DialogTitle>
               <DialogDescription>
                 <Form {...form}>
                   <form
@@ -230,10 +229,20 @@ export function DataTable<TData, TValue>({
                         </FormItem>
                       )}
                     />
-
-                    <Button type="submit" variant={"ghost"} className="w-full">
-                      Create now
-                    </Button>
+                    <div className="flex justify-end">
+                      <DialogClose asChild>
+                        <Button type="button" variant="ghost">
+                          Close
+                        </Button>
+                      </DialogClose>
+                      <Button
+                        type="submit"
+                        variant={"secondary"}
+                        // className="w-full"
+                      >
+                        Create now
+                      </Button>
+                    </div>
                   </form>
                 </Form>
               </DialogDescription>

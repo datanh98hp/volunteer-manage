@@ -22,7 +22,6 @@ export default async function PerformPage() {
   console.log(data);
   return (
     <div>
-      <h1>Perform</h1>
       <DataTable columns={columns} data={data} filterByKey="name" />
     </div>
   );

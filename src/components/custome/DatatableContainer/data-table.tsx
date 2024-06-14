@@ -51,6 +51,7 @@ import {
 } from "@/components/ui/select";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -195,7 +196,7 @@ export function DataTable<TData, TValue>({
     });
   }
 
-  async function handleDeteles(){
+  async function handleDeteles() {
     const selectRows = table.getFilteredSelectedRowModel().rows;
     const listId = selectRows.map((row: any) => row.original.id);
     // console.log("LIST ID be delete ---",listId);
@@ -341,14 +342,20 @@ export function DataTable<TData, TValue>({
                           )}
                         />
                       </div>
-
-                      <Button
-                        type="submit"
-                        variant={"ghost"}
-                        className="w-full"
-                      >
-                        Create now
-                      </Button>
+                      <div className="w-full flex justify-end">
+                        <DialogClose asChild>
+                          <Button type="button" variant="ghost">
+                            Close
+                          </Button>
+                        </DialogClose>
+                        <Button
+                          type="submit"
+                          variant={"secondary"}
+                          className="w-fit"
+                        >
+                          Create now
+                        </Button>
+                      </div>
                     </form>
                   </Form>
                 </DialogDescription>
