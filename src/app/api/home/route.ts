@@ -27,6 +27,9 @@ export async function GET(request: Request) {
             createdAt: 'desc'
         },
         where: {
+            memberId: {
+                in: childs.map((child) => child.id)
+            },
             createdAt: {
                 gte: new Date(timeString)
             }
