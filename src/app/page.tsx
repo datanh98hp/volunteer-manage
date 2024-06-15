@@ -1,6 +1,10 @@
 import CardCustomeContent from "@/components/common/CardCustomeContent";
 import { cn } from "@/lib/utils";
 
+async function getDataHomePage() {
+
+}
+
 export default async function Home() {
   return (
     <main className="flex flex-col justify-between">
@@ -66,14 +70,7 @@ export default async function Home() {
               <p>Đang diễn ra : 0</p>
               <h3>Hoạt động chuẩn bị:0</h3>
               <div className="w-full">
-                <div className="flex my-2">
-                  <p className="font-bold w-36">Kéo co ::</p>
-                  <p>10 người</p>
-                </div>
-                <div className="flex  my-2">
-                  <p className="font-bold w-36">Chuyền bóng:</p>
-                  <p> 10 người</p>
-                </div>
+               
                 <div className="flex  my-2">
                   <p className="font-bold w-36">Đá bóng : </p>
                   <p> 7 người</p>

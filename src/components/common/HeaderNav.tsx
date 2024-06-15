@@ -13,7 +13,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import { MoonIcon, SunIcon } from "lucide-react";
+import { HomeIcon, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 const components: { title: string; href: string; description: string }[] = [
@@ -42,6 +42,13 @@ export function HeaderNavigationMenu() {
     <div className="relative w-full flex justify-center border rounded-full shadow-md">
       <NavigationMenu className="w-full  p-4 ">
         <NavigationMenuList>
+          <NavigationMenuItem>
+            <Link href="/" legacyBehavior passHref >
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+               <HomeIcon size={15} />
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Hành động</NavigationMenuTrigger>
             <NavigationMenuContent>

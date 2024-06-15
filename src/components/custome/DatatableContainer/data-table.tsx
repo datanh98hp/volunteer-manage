@@ -219,7 +219,7 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-between gap-2 py-4">
         <div className="flex items-center gap-2">
           <Input
-            placeholder={`Search by ${filterByKey}`}
+            placeholder={`Tìm kiếm theo ${filterByKey==="fullname" ?"họ & tên":""}`}
             value={
               (table.getColumn(filterByKey)?.getFilterValue() as string) ?? ""
             }
@@ -240,7 +240,7 @@ export function DataTable<TData, TValue>({
             <DialogContent>
               <DialogHeader>
                 <DialogTitle className="text-center my-6">
-                  Add new member
+                  Thêm thành viên
                 </DialogTitle>
                 <DialogDescription>
                   <Form {...form}>
@@ -253,10 +253,10 @@ export function DataTable<TData, TValue>({
                         name="fullname"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Full name</FormLabel>
+                            <FormLabel>Họ và tên</FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="Full name"
+                                placeholder="Họ và tên"
                                 className="outline-none"
                                 {...field}
                               />
@@ -283,14 +283,16 @@ export function DataTable<TData, TValue>({
                                   defaultValue={field.value}
                                   {...field}
                                 >
-                                  <SelectTrigger>
+                                  <SelectTrigger className="outline-none">
                                     <SelectValue />
                                   </SelectTrigger>
                                   <SelectContent className="outline-none">
                                     <SelectItem value="CHILDREND">
-                                      CHILDREND
+                                      Thiếu nhi
                                     </SelectItem>
-                                    <SelectItem value="YOUTH">YOUTH</SelectItem>
+                                    <SelectItem value="YOUTH">
+                                      Thanh niên
+                                    </SelectItem>
                                   </SelectContent>
                                 </Select>
                               </FormControl>
@@ -306,10 +308,10 @@ export function DataTable<TData, TValue>({
                           name="class"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Class</FormLabel>
+                              <FormLabel>Lớp</FormLabel>
                               <FormControl>
                                 <Input
-                                  placeholder="Class ..."
+                                  placeholder="Lớp ..."
                                   className="w-20 outline-none"
                                   {...field}
                                 />
@@ -326,10 +328,10 @@ export function DataTable<TData, TValue>({
                           name="school"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>School</FormLabel>
+                              <FormLabel>Trường</FormLabel>
                               <FormControl>
                                 <Input
-                                  placeholder="School ..."
+                                  placeholder="Trường ..."
                                   className="w-50"
                                   {...field}
                                 />
@@ -345,7 +347,7 @@ export function DataTable<TData, TValue>({
                       <div className="w-full flex justify-end">
                         <DialogClose asChild>
                           <Button type="button" variant="ghost">
-                            Close
+                            Đóng
                           </Button>
                         </DialogClose>
                         <Button
@@ -353,7 +355,7 @@ export function DataTable<TData, TValue>({
                           variant={"secondary"}
                           className="w-fit"
                         >
-                          Create now
+                          Tạo mới
                         </Button>
                       </div>
                     </form>
@@ -365,7 +367,7 @@ export function DataTable<TData, TValue>({
           {/* <div className="mx-4">Epxort</div> */}
           <Select onValueChange={(value) => exportDataHandler(value)}>
             <SelectTrigger className="w-[150px]">
-              <SelectValue placeholder="Export to " />
+              <SelectValue placeholder="Xuất dữ liệu " />
             </SelectTrigger>
             <SelectContent className="w-[80px] outline-none">
               <SelectItem value="txt">TXT</SelectItem>

@@ -54,11 +54,11 @@ export const columns: ColumnDef<Member>[] = [
   },
   {
     accessorKey: "fullname",
-    header: "Fullname",
+    header: "Họ & tên",
   },
   {
     accessorKey: "type",
-    header: "Type",
+    header: "Loại",
   },
   {
     accessorKey: "class",
@@ -68,7 +68,7 @@ export const columns: ColumnDef<Member>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Class
+          Lớp
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -76,7 +76,7 @@ export const columns: ColumnDef<Member>[] = [
   },
   {
     accessorKey: "school",
-    header: "School",
+    header: "Trường",
   },
   {
     accessorKey: "actions",
@@ -115,10 +115,10 @@ export const columns: ColumnDef<Member>[] = [
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(member.id)}
             >
-              Copy ID
+              Sao chép ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={()=>handleDelete()}>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={()=>handleDelete()}>Xóa</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

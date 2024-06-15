@@ -90,12 +90,12 @@ export const columns: ColumnDef<Perform>[] = [
       return (
         <div className="">
           <Drawer direction="bottom">
-            <DrawerTrigger className="cursor-pointer  underline">Listing Join</DrawerTrigger>
+            <DrawerTrigger className="cursor-pointer  underline">Danh sách tham gia</DrawerTrigger>
             <DrawerContent className="fixed h-[80%] bottom-0 left-0 right-0">
               <DrawerHeader>
                 <ScrollArea className="h-[70%] w-full md:flex md:text-center  rounded-md">
                   <Table className="text-sm">
-                    <TableCaption>list member Join in.</TableCaption>
+                    <TableCaption>Danh sách thành viên tham gia hoạt động </TableCaption>
                     <TableHeader>
                       <TableRow>
                         <TableHead className="text-center hidden md:block">
