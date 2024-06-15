@@ -1,11 +1,15 @@
 import CardCustomeContent from "@/components/common/CardCustomeContent";
+import axiosClient from "@/lib/axiosClient";
 import { cn } from "@/lib/utils";
 
 async function getDataHomePage() {
-
+  const res = await axiosClient.get("/api/home");
+  return res.data;
 }
 
 export default async function Home() {
+  const data = await getDataHomePage();
+  console.log(data);
   return (
     <main className="flex flex-col justify-between">
       <h2 className="text-3xl font-bold text-center h-30 w-full mt-20 mb-8">
@@ -21,14 +25,32 @@ export default async function Home() {
           >
             Thiếu nhi
           </h2>
-          <h3 className="font-bold text-xl text-green-600">Tổng : 40</h3>
+          <h3 className="font-bold text-xl text-green-600">
+            Tổng : {data.childs.sumChilds}
+          </h3>
           <div className="text-green-600 my-3 flex">
-            <h3 className="font-bold w-36 ">Hiện tại : 40</h3>
-            <p>Tỷ lệ :100%</p>
+            <h3 className="font-bold w-36 ">
+              Hiện tại : {data.childs.sumChildsCheckInToday}
+            </h3>
+            <p>
+              Tỷ lệ :
+              {(data.childs.sumChildsCheckInToday / data.childs.sumChilds) *
+                100}
+              %
+            </p>
           </div>
           <div className="text-green-600 my-3 flex">
-            <h3 className="font-bold  w-36 ">Vắng : 5</h3>
-            <p> Tỷ lệ :5%</p>
+            <h3 className="font-bold  w-36 ">
+              Vắng : {data.childs.sumChilds - data.childs.sumChilds}
+            </h3>
+            <p>
+              {" "}
+              Tỷ lệ :
+              {((data.childs.sumChilds - data.childs.sumChilds) /
+                data.childs.sumChilds) *
+                100}
+              %
+            </p>
           </div>
         </CardCustomeContent>
         <CardCustomeContent color="blue">
@@ -66,11 +88,10 @@ export default async function Home() {
             <h3 className="font-bold text-sm border-separate-500 rounded-md p-2 border-[0.05rem]">
               Hoạt động : 3
             </h3>
-            <div className="flex h-full flex-col justify-center"> 
+            <div className="flex h-full flex-col justify-center">
               <p>Đang diễn ra : 0</p>
               <h3>Hoạt động chuẩn bị:0</h3>
               <div className="w-full">
-               
                 <div className="flex  my-2">
                   <p className="font-bold w-36">Đá bóng : </p>
                   <p> 7 người</p>

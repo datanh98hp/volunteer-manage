@@ -71,6 +71,7 @@ export const columns: ColumnDef<Member>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="text-center"
         >
           Lớp
           <ArrowUpDown className="ml-2 h-4 w-4" />

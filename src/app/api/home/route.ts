@@ -22,12 +22,17 @@ export async function GET(request: Request) {
     const year = new Date().getFullYear();
     console.log(day, month, year);
     const timeString = `${year}-${month}-${day}`
-    const ChildsCheckInToday = await prisma.member.findMany({
+    const checkInList = await prisma.checkIn.findMany({});
+    const sumCheckInToday = checkInList.length
+    
+    const ChildsCheckInToday = await prisma.checkIn.findMany({
         orderBy: {
             createdAt: 'desc'
         },
         where: {
-            type: 'CHILDREND',
+            memberId: {
+                in: childs.map((child) => child.id)
+            },
             createdAt: {
                 gte: new Date(timeString)
             }
@@ -41,6 +46,7 @@ export async function GET(request: Request) {
         where: {
             type: 'YOUTH',
             createdAt: {
+                
                 gte: new Date(timeString)
             }
         }
@@ -54,7 +60,8 @@ export async function GET(request: Request) {
     })
     const actionsNumber = await prisma.perform.count()
     return Response.json({
-        childs: { sumChilds, sumChildsCheckInToday },
+        sum,
+        childs: { sumChilds, sumChildsCheckInToday, checkInList },
         youth: { sumYouth, sumYouthCheckInToday },
         actions: {
             qty: actionsNumber,

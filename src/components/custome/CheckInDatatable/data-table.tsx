@@ -1,31 +1,18 @@
 "use client";
-
 import {
   ColumnDef,
-  flexRender,
+  ColumnFiltersState,
   SortingState,
   VisibilityState,
-  ColumnFiltersState,
+  flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
   getFilteredRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import React from "react";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -34,14 +21,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronsLeft,
-  ChevronsRight,
-  GripHorizontal,
-  TrashIcon,
-} from "lucide-react";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -50,18 +30,24 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import { ScrollArea } from "@/components/ui/scroll-area";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { toast } from "@/components/ui/use-toast";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronsLeft,
+  ChevronsRight,
+  GripHorizontal,
+  TrashIcon,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
+import React from "react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
