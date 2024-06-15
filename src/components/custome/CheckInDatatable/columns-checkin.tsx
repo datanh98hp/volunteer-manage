@@ -40,7 +40,7 @@ export const columns: ColumnDef<CheckIn>[] = [
   },
   {
     accessorKey: "note",
-    header: "Note",
+    header: "Ghi chú",
   },
 
   {
@@ -51,7 +51,7 @@ export const columns: ColumnDef<CheckIn>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Checkin At
+          T.gian
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -59,7 +59,7 @@ export const columns: ColumnDef<CheckIn>[] = [
   },
   {
     accessorKey: "member",
-    header: "Member",
+    header: "Thành viên",
     cell: ({ row }) => {
       return <>{row.original.member.fullname}</>;
     },

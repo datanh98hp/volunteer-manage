@@ -162,7 +162,7 @@ export function DataTable<TData, TValue>({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-[150px]">
-            <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+            <DropdownMenuLabel>Hiển thị </DropdownMenuLabel>
             <DropdownMenuSeparator />
             {table
               .getAllColumns()

@@ -90,30 +90,32 @@ export const columns: ColumnDef<Perform>[] = [
       return (
         <div className="">
           <Drawer direction="bottom">
-            <DrawerTrigger className="cursor-pointer  underline">Danh sách tham gia</DrawerTrigger>
+            <DrawerTrigger className="cursor-pointer  underline">
+              Danh sách tham gia
+            </DrawerTrigger>
             <DrawerContent className="fixed h-[80%] bottom-0 left-0 right-0">
               <DrawerHeader>
-                <ScrollArea className="h-[70%] w-full md:flex md:text-center  rounded-md">
+                <ScrollArea className="h-[80%] w-full md:flex md:text-center  rounded-md">
                   <Table className="text-sm">
-                    <TableCaption>Danh sách thành viên tham gia hoạt động </TableCaption>
+                    <TableCaption>
+                      Danh sách thành viên tham gia hoạt động{" "}
+                    </TableCaption>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="text-center hidden md:block">
-                          Full name
-                        </TableHead>
-                        <TableHead className="text-center">Full name</TableHead>
-                        <TableHead>Type</TableHead>
-                        <TableHead className="text-center">Class</TableHead>
-                        <TableHead className="text-center">School</TableHead>
+                        <TableHead className="text-center">Họ và tên</TableHead>
+
+                        <TableHead>Loại</TableHead>
+                        <TableHead className="text-center">Lớp</TableHead>
+                        <TableHead className="text-center">Trường</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {data?.JoinIn.map((item, index) => (
                         <TableRow key={index}>
-                          <TableCell className="hidden md:block">
+                          <TableCell className=" text-center">
                             {item.member.id}
                           </TableCell>
-                          <TableCell className="text-center">
+                          <TableCell className="text-center ">
                             {item.member.fullname}
                           </TableCell>
                           <TableCell className="text-center">
