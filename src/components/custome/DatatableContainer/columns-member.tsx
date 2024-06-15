@@ -12,6 +12,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
+import axiosClient from "@/lib/axiosClient";
 export type Member = {
   id: string;
   fullname: string;
@@ -59,6 +60,9 @@ export const columns: ColumnDef<Member>[] = [
   {
     accessorKey: "type",
     header: "Loại",
+    cell: ({ row }) => {
+      return <>{row.original.type === "YOUTH" ? "Thanh niên" : "Thiếu nhi"}</>;
+    },
   },
   {
     accessorKey: "class",
@@ -91,6 +95,9 @@ export const columns: ColumnDef<Member>[] = [
       const member = row.original;
       // console.log(member);
       const { id } = member;
+      // get list perform
+
+      
       const handleDelete = async () => {
         await fetch(`/api/member/${id}`, {
           method: "DELETE",
@@ -103,6 +110,7 @@ export const columns: ColumnDef<Member>[] = [
           description: "Delete member successfully",
         });
       };
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -119,7 +127,10 @@ export const columns: ColumnDef<Member>[] = [
               Sao chép ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={()=>handleDelete()}>Xóa</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleDelete()}>
+              Xóa
+            </DropdownMenuItem>
+
           </DropdownMenuContent>
         </DropdownMenu>
       );
