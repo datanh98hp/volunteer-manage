@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     const timeString = `${year}-${month}-${day}`
     const checkInList = await prisma.checkIn.findMany({});
     const sumCheckInToday = checkInList.length
-    
+
     const ChildsCheckInToday = await prisma.checkIn.findMany({
         orderBy: {
             createdAt: 'desc'
@@ -46,7 +46,7 @@ export async function GET(request: Request) {
         where: {
             type: 'YOUTH',
             createdAt: {
-                
+
                 gte: new Date(timeString)
             }
         }
