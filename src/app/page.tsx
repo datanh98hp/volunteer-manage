@@ -12,7 +12,7 @@ export default async function Home() {
   console.log(data);
   return (
     <main className="flex flex-col justify-between">
-      <h2 className="text-3xl font-bold text-center h-30 w-full mt-20 mb-8">
+      <h2 className="text-3xl font-bold text-center h-20 w-full mt-20 mb-8">
         Số liệu thống kê
       </h2>
       <div className="md:flex justify-between h-full">
@@ -43,14 +43,15 @@ export default async function Home() {
           </div>
           <div className="text-green-600 my-3 flex">
             <h3 className="font-bold  w-36 ">
-              Vắng : {data.childs.sumChilds - data.childs.sumChilds}
+              Vắng : {data.childs.sumChilds - data.childs.sumChildsCheckInToday}
             </h3>
             <p>
-              {" "}
               Tỷ lệ :
-              {((data.childs.sumChilds - data.childs.sumChilds) /
-                data.childs.sumChilds) *
-                100}
+              {Math.round(
+                ((data.childs.sumChilds - data.childs.sumChildsCheckInToday) /
+                  data.childs.sumChilds) *
+                  100
+              )}
               %
             </p>
           </div>
@@ -64,19 +65,35 @@ export default async function Home() {
           >
             Thanh niên
           </h2>
-          <h3 className="font-bold text-xl">Tổng : 40</h3>
+          <h3 className="font-bold text-xl">Tổng : {data.youth.sumYouth}</h3>
           <div className=" my-3 flex">
-            <h3 className="font-bold w-36 ">Hiện tại : 40</h3>
-            <p>Tỷ lệ :100%</p>
+            <h3 className="font-bold w-36 ">
+              Hiện tại : {data.youth.sumYouthCheckInToday}
+            </h3>
+            <p>
+              Tỷ lệ :
+              {(data.youth.sumYouthCheckInToday / data.youth.sumYouth) * 100}%
+            </p>
           </div>
           <div className="my-3 flex">
-            <h3 className="font-bold  w-36 ">Vắng : 5</h3>
-            <p> Tỷ lệ :5%</p>
+            <h3 className="font-bold  w-36 ">
+              Vắng : {data.youth.sumYouth - data.youth.sumYouthCheckInToday}
+            </h3>
+            <p>
+              {" "}
+              Tỷ lệ :
+              {Math.round(
+                ((data.youth.sumYouth - data.youth.sumYouthCheckInToday) /
+                  data.youth.sumYouth) *
+                  100
+              )}
+              %
+            </p>
           </div>
         </CardCustomeContent>
         <CardCustomeContent>
           <div className="md:h-full">
-            <h3 className="border font-bold text-sm text-orange-500 border-orange-500 rounded-md p-2 border-[0.05rem]">
+            <h3 className=" font-bold text-sm text-orange-500 border-orange-500 rounded-md p-2 border-[0.05rem]">
               Số dư hiện tại : 500.000 VND
             </h3>
             <div className="flex h-full flex-col justify-evenly">

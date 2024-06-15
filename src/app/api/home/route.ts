@@ -22,20 +22,7 @@ export async function GET(request: Request) {
     const year = new Date().getFullYear();
     console.log(day, month, year);
     const timeString = `${year}-${month}-${day}`
-    const checkInList = await prisma.checkIn.findMany({
-        orderBy: {
-            createdAt: 'desc'
-        },
-        where: {
-            memberId: {
-                in: childs.map((child) => child.id)
-            },
-            createdAt: {
-                gte: new Date(timeString)
-            }
-        }
-    });
-    const sumCheckInToday = checkInList.length
+
 
     const ChildsCheckInToday = await prisma.checkIn.findMany({
         orderBy: {
@@ -51,14 +38,15 @@ export async function GET(request: Request) {
         }
     });
     const sumChildsCheckInToday = ChildsCheckInToday.length
-    const YouthCheckInToday = await prisma.member.findMany({
+    const YouthCheckInToday = await prisma.checkIn.findMany({
         orderBy: {
             createdAt: 'desc'
         },
         where: {
-            type: 'YOUTH',
+            memberId: {
+                in: youth.map((youth) => youth.id)
+            },
             createdAt: {
-
                 gte: new Date(timeString)
             }
         }
@@ -73,7 +61,7 @@ export async function GET(request: Request) {
     const actionsNumber = await prisma.perform.count()
     return Response.json({
         sum,
-        childs: { sumChilds, sumChildsCheckInToday, checkInList },
+        childs: { sumChilds, sumChildsCheckInToday },
         youth: { sumYouth, sumYouthCheckInToday },
         actions: {
             qty: actionsNumber,
