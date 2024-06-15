@@ -34,8 +34,10 @@ export default async function Home() {
             </h3>
             <p>
               Tỷ lệ :
-              {(data.childs.sumChildsCheckInToday / data.childs.sumChilds) *
-                100}
+              {Math.round(
+                (data.childs.sumChildsCheckInToday / data.childs.sumChilds) *
+                  100
+              )}
               %
             </p>
           </div>

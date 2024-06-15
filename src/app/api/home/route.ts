@@ -22,7 +22,16 @@ export async function GET(request: Request) {
     const year = new Date().getFullYear();
     console.log(day, month, year);
     const timeString = `${year}-${month}-${day}`
-    const checkInList = await prisma.checkIn.findMany({});
+    const checkInList = await prisma.checkIn.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        },
+        where: {
+            createdAt: {
+                gte: new Date(timeString)
+            }
+        }
+    });
     const sumCheckInToday = checkInList.length
 
     const ChildsCheckInToday = await prisma.checkIn.findMany({
