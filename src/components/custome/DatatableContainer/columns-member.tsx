@@ -97,6 +97,7 @@ export const columns: ColumnDef<Member>[] = [
         });
 
         row.getCanExpand() && row.toggleExpanded();
+        location.reload();
         toast({
           title: "Success",
           description: "Delete member successfully",
