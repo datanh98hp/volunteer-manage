@@ -45,7 +45,9 @@ import {
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -219,7 +221,9 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-between gap-2 py-4">
         <div className="flex items-center gap-2">
           <Input
-            placeholder={`Tìm kiếm theo ${filterByKey==="fullname" ?"họ & tên":""}`}
+            placeholder={`Tìm kiếm theo ${
+              filterByKey === "fullname" ? "họ & tên" : ""
+            }`}
             value={
               (table.getColumn(filterByKey)?.getFilterValue() as string) ?? ""
             }
@@ -366,7 +370,7 @@ export function DataTable<TData, TValue>({
           </Dialog>
           {/* <div className="mx-4">Epxort</div> */}
           <Select onValueChange={(value) => exportDataHandler(value)}>
-            <SelectTrigger className="w-[150px]">
+            <SelectTrigger className="md:w-[150px]">
               <SelectValue placeholder="Xuất dữ liệu " />
             </SelectTrigger>
             <SelectContent className="w-[80px] outline-none">
@@ -420,7 +424,27 @@ export function DataTable<TData, TValue>({
           <TrashIcon className="h-4 w-4" />
         </Button>
       </div>
-
+      <div className="flex mb-3">
+        <Select
+          value={
+            (table.getColumn(filterByKey)?.getFilterValue() as string) ?? ""
+          }
+          onValueChange={(value) =>
+            table.getColumn("type")?.setFilterValue(value)
+          }
+        >
+          <SelectTrigger className="w-[150px]">
+            <SelectValue placeholder="Loại thành viên" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Loại thành viên</SelectLabel>
+              <SelectItem value="CHILDREND">Thiếu nhi</SelectItem>
+              <SelectItem value="YOUTH">Thanh niên</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
