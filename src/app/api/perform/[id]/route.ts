@@ -18,41 +18,30 @@ export async function GET(request: Request) {
 export async function POST(request: Request, { params }: { params: { id: string } }) {
     const { id } = params;
     const listId = await request.json()
-    const data = listId.map((item: any) => {
-        return {
-            member:{
-                connect: {
-                    id: Number(item)
-                }
-            },
-            perform: {
-                connect: {
-                    id: Number(id)
-                }
-            }
-        }
-    })
-    console.log("Request data----- :", data)
+
+    console.log("Request data----- :", listId)
     try {
         const newItem = await prisma.joinIn.createMany({
-            data:data
+            data: listId.map((item: JoinIn) => {
+                return {
+                    performId: id,
+                    memberId: item.memberId
+                }
+            }),
         });
-        if (newItem.count > 0) {
-            return new Response(JSON.stringify(listId), {
-                status: 200,
-            })
-        } else {
-            return new Response(JSON.stringify({ error: 'Something went wrong' }), { status: 500 })
-        }
+        return new Response(JSON.stringify(listId), {
+            status: 200,
+        })
+        // if (newItem.count > 0) {
+        //     return new Response(JSON.stringify(listId), {
+        //         status: 200,
+        //     })
+        // } else {
+        //     return new Response(JSON.stringify({ error: 'Something went wrong' }), { status: 500 })
+        // }
 
     } catch (error: any) {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 })
-        // }
-        return Response.json({
-            message: 'success'
-        }, {
-            status: 200
-        })
 
     }
 }
