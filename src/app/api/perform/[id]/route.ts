@@ -27,15 +27,14 @@ export async function POST(request: Request, { params }: { params: { id: string 
     console.log("Request data----- :", data)
 
     try {
-        const newItem = await prisma.joinIn.createMany({
-            data: data
-        });
 
-        if (newItem.count > 0) {
-            return new Response(JSON.stringify(listId), {
-                status: 200,
+        data.map(async (item: any) => {
+            const newItem = await prisma.joinIn.create({
+                data: item
             })
-        }
+        })
+
+        return new Response(JSON.stringify({ message: 'success' }), { status: 200 })
     } catch (error: any) {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 })
 
