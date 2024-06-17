@@ -48,6 +48,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import exportFromJSON from "export-from-json";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -121,11 +122,42 @@ export function DataTable<TData, TValue>({
       description: "Deleted successfully",
     });
   };
+  const handleGetResult = () => {
+    const rowSelected = table.getFilteredSelectedRowModel().rows;
+    const data = rowSelected.map((row: any) => row.original);
+    console.log(data);
+    const contentData = data.map((item: any) => {
+      return {
+        ID: item.id,
+        userId: item.memberId,
+        checkAt: item.createdAt,
+        fullname: item.member.fullname,
+        type: item.member.type,
+        class: item.member.class,
+        school: item.member.school,
+      };
+    });
+    console.log(contentData);
+    if (data.length === 0) {
+      toast({
+        title: "Error",
+        description: "Please select member",
+      });
+      return;
+    }
+    // router.refresh()
+    exportFromJSON({
+      data: contentData,
+      fileName: `checkin-export-${new Date().getTime()}`,
+      exportType: exportFromJSON.types.xls,
+    });
+    
+  };
   return (
     <div>
       <div className="flex items-center py-4 outline-none">
         <Input
-          placeholder={`Search by ${filterByKey}`}
+          placeholder={`Tìm kiếm ${filterByKey==="createdAt"?"T.gian":""}`}
           value={
             (table.getColumn(filterByKey)?.getFilterValue() as string) ?? ""
           }
@@ -141,6 +173,11 @@ export function DataTable<TData, TValue>({
         >
           <TrashIcon className="h-4 w-4" />
         </Button>
+        {/* liệt kê member đã điểm danh */}
+        <Button onClick={() => handleGetResult()} variant={"outline"}>
+          Kết quả điểm danh
+        </Button>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="ml-auto h-8 lg:flex">
@@ -246,7 +283,7 @@ export function DataTable<TData, TValue>({
                 />
               </SelectTrigger>
               <SelectContent side="top">
-                {[10, 20, 30, 40, 50].map((pageSize) => (
+                {[10, 20, 30, 40, 50, 80, 100].map((pageSize) => (
                   <SelectItem key={pageSize} value={`${pageSize}`}>
                     {pageSize}
                   </SelectItem>
