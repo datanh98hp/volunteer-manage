@@ -20,30 +20,28 @@ export async function POST(request: Request, { params }: { params: { id: string 
     const listId = await request.json()
 
     console.log("Request data----- :", listId)
-    // try {
-    //     const newItem = await prisma.joinIn.createMany({
-    //         data: listId.map((item: JoinIn) => {
-    //             return {
-    //                 performId: id,
-    //                 memberId: item.memberId
-    //             }
-    //         }),
-    //     });
-    //     return new Response(JSON.stringify(listId), {
-    //         status: 200,
-    //     })
-        // if (newItem.count > 0) {
-        //     return new Response(JSON.stringify(listId), {
-        //         status: 200,
-        //     })
-        // } else {
-        //     return new Response(JSON.stringify({ error: 'Something went wrong' }), { status: 500 })
-        // }
+    try {
+        const newItem = await prisma.joinIn.createMany({
+            data: listId.map((item: JoinIn) => {
+                return {
+                    performId: id,
+                    memberId: item.memberId
+                }
+            }),
+        });
 
-    // } catch (error: any) {
-    //     return new Response(JSON.stringify({ error: error.message }), { status: 500 })
+        if (newItem.count > 0) {
+            return new Response(JSON.stringify(listId), {
+                status: 200,
+            })
+        } else {
+            return new Response(JSON.stringify({ error: 'Something went wrong' }), { status: 500 })
+        }
 
-    // }
+    } catch (error: any) {
+        return new Response(JSON.stringify({ error: error.message }), { status: 500 })
+
+    }
 }
 export async function DELETE(request: Request) {
 
