@@ -1,3 +1,5 @@
+import { create } from 'domain';
+import { JoinIn } from './../../../../generated/client/index.d';
 
 import { PrismaClient } from "@prisma/client"
 
@@ -14,20 +16,28 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request, { params }: { params: { id: string } }) {
-
     const { id } = params;
     const listId = await request.json()
-    console.log("Request data----- :", listId)
-    try {
-        const newItem = await prisma.checkIn.createMany({
-            data: listId.map((item: any) => {
-                return {
-                    note: `Perform - ${item}`,
-                    memberId: item
+    const data = listId.map((item: any) => {
+        return {
+            member:{
+                connect: {
+                    id: Number(item)
                 }
-            }),
+            },
+            perform: {
+                connect: {
+                    id: Number(id)
+                }
+            }
+        }
+    })
+    console.log("Request data----- :", data)
+    try {
+        const newItem = await prisma.joinIn.createMany({
+            data:data
         });
-        if (newItem.count >0) {
+        if (newItem.count > 0) {
             return new Response(JSON.stringify(listId), {
                 status: 200,
             })
@@ -37,16 +47,21 @@ export async function POST(request: Request, { params }: { params: { id: string 
 
     } catch (error: any) {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 })
+        // }
+        return Response.json({
+            message: 'success'
+        }, {
+            status: 200
+        })
+
     }
-
 }
-
 export async function DELETE(request: Request) {
 
     return Response.json({
         message: 'success'
     }, {
         status: 200
-    })
+    });
 
 }
