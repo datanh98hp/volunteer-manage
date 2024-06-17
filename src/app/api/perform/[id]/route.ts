@@ -20,7 +20,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
     const listId = await request.json()
     const data = listId.map((item: any) => {
         return {
-            perfomId: id,
+            perfomId: +id,
             memberId: item
         }
     })
