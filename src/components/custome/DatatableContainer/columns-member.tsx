@@ -98,7 +98,6 @@ export const columns: ColumnDef<Member>[] = [
       const { id } = member;
       // get list perform
 
-      
       const handleDelete = async () => {
         await fetch(`/api/member/${id}`, {
           method: "DELETE",
@@ -111,7 +110,6 @@ export const columns: ColumnDef<Member>[] = [
           description: "Delete member successfully",
         });
       };
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -130,8 +128,7 @@ export const columns: ColumnDef<Member>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => handleDelete()}>
               Xóa
-            </DropdownMenuItem>
-
+            </DropdownMenuItem>         
           </DropdownMenuContent>
         </DropdownMenu>
       );

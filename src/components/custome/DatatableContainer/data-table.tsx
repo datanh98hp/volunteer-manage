@@ -64,6 +64,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filterByKey: string;
+  performs: Array<any>;
 }
 import { z } from "zod";
 import {
@@ -84,6 +85,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   filterByKey,
+  performs,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -214,6 +216,24 @@ export function DataTable<TData, TValue>({
       title: "Success",
       color: "green",
       description: "Delete successfully",
+    });
+  }
+  async function handleAddToPerform(idPerform: string) {
+    const selectRows = table.getFilteredSelectedRowModel().rows;
+    const listId = selectRows.map((row: any) => row.original.id);
+    // console.log("LIST ID be delete ---",listId);
+    await fetch(`/api/perform/${idPerform}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(listId),
+    });
+    router.refresh();
+    toast({
+      title: "Success",
+      color: "green",
+      description: "Add to perform successfully",
     });
   }
   return (
@@ -444,7 +464,21 @@ export function DataTable<TData, TValue>({
             </SelectGroup>
           </SelectContent>
         </Select>
+        {/*  */}
+        <Select onValueChange={(value) => handleAddToPerform(value)}>
+          <SelectTrigger className="md:w-[180px]">
+            <SelectValue placeholder="Them vao tiet muc" />
+          </SelectTrigger>
+          <SelectContent className="w-[180px] outline-none">
+            {performs.map((perform) => (
+              <SelectItem key={perform.id} value={perform.id}>
+                {perform.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>

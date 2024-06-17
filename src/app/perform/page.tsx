@@ -16,10 +16,8 @@ async function getData() {
   const dataJson = await res.data;
   return dataJson;
 }
-
 export default async function PerformPage() {
   const data = await getData();
-  console.log(data);
   return (
     <div>
       <DataTable columns={columns} data={data} filterByKey="name" />

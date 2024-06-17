@@ -240,7 +240,7 @@ export function DataTable<TData, TValue>({
                         variant={"secondary"}
                         // className="w-full"
                       >
-                        Create now
+                        Tạo mới
                       </Button>
                     </div>
                   </form>

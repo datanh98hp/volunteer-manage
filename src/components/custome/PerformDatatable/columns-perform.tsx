@@ -5,10 +5,10 @@ import {
   Drawer,
   DrawerContent,
   DrawerHeader,
-  DrawerTrigger
+  DrawerTrigger,
 } from "@/components/ui/drawer";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, PlusCircle } from "lucide-react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -20,6 +20,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Combobox from "@/components/ui/combobox";
+import axiosClient from "@/lib/axiosClient";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 export type Perform = {
   id: string;
   name: string;
@@ -66,7 +75,6 @@ export const columns: ColumnDef<Perform>[] = [
     accessorKey: "name",
     header: "Title",
   },
-
   {
     accessorKey: "description",
     header: ({ column }) => {
@@ -87,6 +95,19 @@ export const columns: ColumnDef<Perform>[] = [
     cell: ({ row }) => {
       const data = row.original;
       //console.log("Data cell", data);
+
+      // const getMember = async () => {
+      //   const res = await axiosClient.get("/api/member");
+      //   const list = res.data?.map((item: any) => {
+      //     return {
+      //       key: `${item.id}`,
+      //       value: item.fullname,
+      //     };
+      //   });
+
+      //   return list;
+      // };
+      
       return (
         <div className="">
           <Drawer direction="bottom">
@@ -95,10 +116,14 @@ export const columns: ColumnDef<Perform>[] = [
             </DrawerTrigger>
             <DrawerContent className="fixed h-[80%] bottom-0 left-0 right-0">
               <DrawerHeader>
+               
+                <Button className="w-fit text-center mx-2" variant={"ghost"}>
+                  <PlusCircle className="h-6 w-6 mx-auto" />
+                </Button>
                 <ScrollArea className="h-[80%] w-full md:flex md:text-center  rounded-md">
                   <Table className="text-sm">
                     <TableCaption>
-                      Danh sách thành viên tham gia hoạt động{" "}
+                      Danh sách thành viên tham gia hoạt động
                     </TableCaption>
                     <TableHeader>
                       <TableRow>
@@ -137,38 +162,38 @@ export const columns: ColumnDef<Perform>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "actions",
-  //   header: () => {
-  //     return (
-  //       <>
-  //         <MoreHorizontal className="h-5 w-5" />
-  //       </>
-  //     );
-  //   },
-  //   cell: ({ row }) => {
-  //     const member = row.original;
-  //     console.log(member);
-  //     return (
-  //       <DropdownMenu>
-  //         <DropdownMenuTrigger asChild>
-  //           <Button variant="ghost" className="h-8 w-8 p-0">
-  //             <span className="sr-only">Open menu</span>
-  //             <MoreHorizontal className="h-4 w-4" />
-  //           </Button>
-  //         </DropdownMenuTrigger>
-  //         <DropdownMenuContent align="end">
-  //           {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-  //           <DropdownMenuItem
-  //             onClick={() => navigator.clipboard.writeText(member.id)}
-  //           >
-  //             Copy payment ID
-  //           </DropdownMenuItem>
-  //           <DropdownMenuSeparator />
-  //           <DropdownMenuItem>View details</DropdownMenuItem>
-  //         </DropdownMenuContent>
-  //       </DropdownMenu>
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "actions",
+    header: () => {
+      return (
+        <>
+          <MoreHorizontal className="h-5 w-5" />
+        </>
+      );
+    },
+    cell: ({ row }) => {
+      const member = row.original;
+      console.log(member);
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(member.id)}
+            >
+              Copy payment ID
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>View details</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+  },
 ];

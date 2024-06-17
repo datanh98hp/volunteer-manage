@@ -19,12 +19,18 @@ async function getDataMembers() {
   const data = res.data;
   return data;
 }
+async function getPerform(){
+  const res = await axiosClient.get("/api/perform");
+
+  const data = res.data;
+  return data;
+}
 export default async function PerformPage() {
   const data = await getDataMembers();
-
+  const performs = await getPerform();
   return (
     <div className="w-full">
-      <DataTable columns={columns} data={data || []} filterByKey="fullname" />
+      <DataTable columns={columns} data={data || []} filterByKey="fullname" performs={performs} />
     </div>
   );
 }
