@@ -18,16 +18,16 @@ export async function GET(request: Request) {
 export async function POST(request: Request, { params }: { params: { id: string } }) {
     const { id } = params;
     const listId = await request.json()
-
+    const data = listId.map((item: any) => {
+        return {
+            performId: id,
+            memberId: item
+        }
+    })
     console.log("Request data----- :", listId)
     try {
         const newItem = await prisma.joinIn.createMany({
-            data: listId.map((item: JoinIn) => {
-                return {
-                    performId: id,
-                    memberId: item.memberId
-                }
-            }),
+            data: data
         });
 
         if (newItem.count > 0) {
