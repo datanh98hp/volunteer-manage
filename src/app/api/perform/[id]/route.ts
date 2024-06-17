@@ -24,24 +24,25 @@ export async function POST(request: Request, { params }: { params: { id: string 
             memberId: item
         }
     })
-    console.log("Request data----- :", listId)
-    try {
-        const newItem = await prisma.joinIn.createMany({
-            data: data
-        });
+    console.log("Request data----- :", data)
 
-        if (newItem.count > 0) {
-            return new Response(JSON.stringify(listId), {
+    // try {
+    //     const newItem = await prisma.joinIn.createMany({
+    //         data: data
+    //     });
+
+    //     if (newItem.count > 0) {
+            return new Response(JSON.stringify({ message: 'success' }), {
                 status: 200,
             })
-        } else {
-            return new Response(JSON.stringify({ error: 'Something went wrong' }), { status: 500 })
-        }
+    //     } else {
+    //         return new Response(JSON.stringify({ error: 'Something went wrong' }), { status: 500 })
+    //     }
 
-    } catch (error: any) {
-        return new Response(JSON.stringify({ error: error.message }), { status: 500 })
+    // } catch (error: any) {
+    //     return new Response(JSON.stringify({ error: error.message }), { status: 500 })
 
-    }
+    // }
 }
 export async function DELETE(request: Request) {
 
