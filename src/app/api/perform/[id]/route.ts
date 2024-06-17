@@ -26,23 +26,20 @@ export async function POST(request: Request, { params }: { params: { id: string 
     })
     console.log("Request data----- :", data)
 
-    // try {
+    try {
         const newItem = await prisma.joinIn.createMany({
             data: data
         });
 
-    //     if (newItem.count > 0) {
-            return new Response(JSON.stringify({ message: 'success' }), {
+        if (newItem.count > 0) {
+            return new Response(JSON.stringify(listId), {
                 status: 200,
             })
-    //     } else {
-    //         return new Response(JSON.stringify({ error: 'Something went wrong' }), { status: 500 })
-    //     }
+        }
+    } catch (error: any) {
+        return new Response(JSON.stringify({ error: error.message }), { status: 500 })
 
-    // } catch (error: any) {
-    //     return new Response(JSON.stringify({ error: error.message }), { status: 500 })
-
-    // }
+    }
 }
 export async function DELETE(request: Request) {
 
