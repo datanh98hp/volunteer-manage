@@ -2,10 +2,8 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
-export const config = {
-    runtime: 'edge',
-    regions: ['vn1']
-}
+export const runtime = 'edge';
+export const preferredRegion = ['vn1', 'vn2'];
 export async function GET(request: Request) {
     const data = await prisma.perform.findMany({
         include: {
