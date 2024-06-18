@@ -5,10 +5,22 @@ const prisma = new PrismaClient()
 export async function GET(request: Request, { params }: { params: { id: string } }) {
 
     const { id } = params
-    const data = await prisma.member.findUnique({
+
+    const sumCheckIn = await prisma.checkIn.count({
+        where: {
+            memberId: Number(id)
+        }
+    })
+   
+    const data = await prisma.member.groupBy({
+        by: ['id'],
         where: {
             id: Number(id)  // convert string to number
-        }
+        },
+        _sum: {
+            checkIn: true
+        },
+    
     })
     return Response.json(data)
 }
