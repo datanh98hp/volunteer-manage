@@ -4,8 +4,7 @@ import { JoinIn } from './../../../../generated/client/index.d';
 import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
-export const runtime = 'edge';
-export const preferredRegion = ['hkg1'];
+
 export async function GET(request: Request) {
 
     return Response.json({
