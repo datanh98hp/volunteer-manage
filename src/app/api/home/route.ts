@@ -47,7 +47,7 @@ export async function GET(request: Request) {
                 in: youth.map((youth) => youth.id)
             },
             createdAt: {
-                gte: new Date(timeString)
+                gte: new Date()
             }
         }
     });
