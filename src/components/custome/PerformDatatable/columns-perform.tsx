@@ -93,20 +93,7 @@ export const columns: ColumnDef<Perform>[] = [
     header: "JoinIn",
     cell: ({ row }) => {
       const data = row.original;
-      //console.log("Data cell", data);
-
-      // const getMember = async () => {
-      //   const res = await axiosClient.get("/api/member");
-      //   const list = res.data?.map((item: any) => {
-      //     return {
-      //       key: `${item.id}`,
-      //       value: item.fullname,
-      //     };
-      //   });
-
-      //   return list;
-      // };
-      
+      //console.log("Data cell", data);      
       return (
         <div className="">
           <Drawer direction="bottom">
@@ -115,7 +102,6 @@ export const columns: ColumnDef<Perform>[] = [
             </DrawerTrigger>
             <DrawerContent className="fixed h-[80%] bottom-0 left-0 right-0">
               <DrawerHeader>
-               
                 <Button className="w-fit text-center mx-2" variant={"ghost"}>
                   <PlusCircle className="h-6 w-6 mx-auto" />
                 </Button>
@@ -126,10 +112,10 @@ export const columns: ColumnDef<Perform>[] = [
                     </TableCaption>
                     <TableHeader>
                       <TableRow>
+                        <TableHead className="text-center">ID</TableHead>
                         <TableHead className="text-center">Họ và tên</TableHead>
-
-                        <TableHead>Loại</TableHead>
                         <TableHead className="text-center">Lớp</TableHead>
+                        <TableHead className="text-center">Loại</TableHead>
                         <TableHead className="text-center">Trường</TableHead>
                       </TableRow>
                     </TableHeader>
@@ -172,7 +158,7 @@ export const columns: ColumnDef<Perform>[] = [
     },
     cell: ({ row }) => {
       const member = row.original;
-      console.log(member);
+     
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

@@ -23,7 +23,6 @@ export async function GET(request: Request) {
     console.log(day, month, year);
     const timeString = `${year}-${month}-${day}`
 
-
     const ChildsCheckInToday = await prisma.checkIn.findMany({
         orderBy: {
             createdAt: 'desc'
@@ -38,6 +37,24 @@ export async function GET(request: Request) {
         }
     });
     const sumChildsCheckInToday = ChildsCheckInToday.length
+    ////
+    const ChildsNotCheckinToday = await prisma.checkIn.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        },
+        where: {
+            memberId: {
+                notIn: childs.map((child) => child.id)
+            },
+            createdAt: {
+                lt: new Date()
+            }
+        }
+    });
+    const sumChildsNotCheckinToday = ChildsNotCheckinToday.length
+
+
+    //////////
     const YouthCheckInToday = await prisma.checkIn.findMany({
         orderBy: {
             createdAt: 'desc'
@@ -52,7 +69,23 @@ export async function GET(request: Request) {
         }
     });
     const sumYouthCheckInToday = YouthCheckInToday.length
-    // 
+    // //
+
+    const YouthNotCheckInToday = await prisma.checkIn.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        },
+        where: {
+            memberId: {
+                notIn: youth.map((youth) => youth.id)
+            },
+            createdAt: {
+                lt: new Date()
+            }
+        }
+    });
+    const sumYouthNotCheckInToday = YouthNotCheckInToday.length
+    //
     const actions = await prisma.perform.findMany({
         orderBy: {
             id: 'desc'
@@ -61,8 +94,14 @@ export async function GET(request: Request) {
     const actionsNumber = await prisma.perform.count()
     return Response.json({
         sum,
-        childs: { sumChilds, sumChildsCheckInToday },
-        youth: { sumYouth, sumYouthCheckInToday },
+        childs: {
+            sumChilds, 
+            ChildsNotCheckinToday, sumChildsNotCheckinToday,
+            ChildsCheckInToday, sumChildsCheckInToday
+        },
+        youth: { 
+            sumYouth, 
+            YouthCheckInToday, YouthNotCheckInToday, sumYouthNotCheckInToday, sumYouthCheckInToday },
         actions: {
             qty: actionsNumber,
             data: actions

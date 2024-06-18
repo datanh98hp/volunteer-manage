@@ -122,7 +122,7 @@ export function DataTable<TData, TValue>({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    // console.log(values);
     await fetch(`/api/perform`, {
       method: "POST",
       headers: {
@@ -144,7 +144,7 @@ export function DataTable<TData, TValue>({
   const handleDeletes = () => {
     const selectRows = table.getFilteredSelectedRowModel().rows;
     const listId = selectRows.map((row: any) => row.original.id);
-    console.log("LIST ID be delete ---", listId);
+    // console.log("LIST ID be delete ---", listId);
     fetch(`/api/perform`, {
       method: "DELETE",
       headers: {
@@ -182,7 +182,7 @@ export function DataTable<TData, TValue>({
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle className="my-6">Add new perform</DialogTitle>
+              <DialogTitle className="my-6">Thêm hoạt động mới</DialogTitle>
               <DialogDescription>
                 <Form {...form}>
                   <form
