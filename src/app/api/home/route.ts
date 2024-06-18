@@ -33,7 +33,7 @@ export async function GET(request: Request) {
                 in: childs.map((child) => child.id)
             },
             createdAt: {
-                gte: new Date(timeString)
+                gte: new Date()
             }
         }
     });
