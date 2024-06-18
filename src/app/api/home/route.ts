@@ -34,7 +34,10 @@ export async function GET(request: Request) {
             createdAt: {
                 gte: new Date()
             }
-        }
+        },
+        include: {
+            member: true
+        },
     });
     const sumChildsCheckInToday = ChildsCheckInToday.length
     ////
@@ -49,7 +52,10 @@ export async function GET(request: Request) {
             createdAt: {
                 lt: new Date()
             }
-        }
+        },
+        include: {
+            member: true
+        },
     });
     const sumChildsNotCheckinToday = ChildsNotCheckinToday.length
 
@@ -66,7 +72,10 @@ export async function GET(request: Request) {
             createdAt: {
                 gte: new Date()
             }
-        }
+        },
+        include: {
+            member: true
+        },
     });
     const sumYouthCheckInToday = YouthCheckInToday.length
     // //
@@ -82,7 +91,10 @@ export async function GET(request: Request) {
             createdAt: {
                 lt: new Date()
             }
-        }
+        },
+        include: {
+            member: true
+        },
     });
     const sumYouthNotCheckInToday = YouthNotCheckInToday.length
     //
@@ -95,13 +107,14 @@ export async function GET(request: Request) {
     return Response.json({
         sum,
         childs: {
-            sumChilds, 
+            sumChilds,
             ChildsNotCheckinToday, sumChildsNotCheckinToday,
             ChildsCheckInToday, sumChildsCheckInToday
         },
-        youth: { 
-            sumYouth, 
-            YouthCheckInToday, YouthNotCheckInToday, sumYouthNotCheckInToday, sumYouthCheckInToday },
+        youth: {
+            sumYouth,
+            YouthCheckInToday, YouthNotCheckInToday, sumYouthNotCheckInToday, sumYouthCheckInToday
+        },
         actions: {
             qty: actionsNumber,
             data: actions
