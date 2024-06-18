@@ -3,8 +3,14 @@ import axiosClient from "@/lib/axiosClient";
 import { cn } from "@/lib/utils";
 
 async function getDataHomePage() {
-  const res = await axiosClient.get("/api/home");
-  return res.data;
+  try {
+    const res = await axiosClient.get("/api/home");
+    return res.data;
+  } catch (error: any) {
+    console.log(error.message);
+    return error;
+  }
+  
 }
 
 export default async function Home() {
@@ -26,16 +32,16 @@ export default async function Home() {
             Thiếu nhi
           </h2>
           <h3 className="font-bold text-xl text-green-600">
-            Tổng : {data.childs.sumChilds}
+            Tổng : {data?.childs?.sumChilds}
           </h3>
           <div className="text-green-600 my-3 flex">
             <h3 className="font-bold w-36 ">
-              Hiện tại : {data.childs.sumChildsCheckInToday}
+              Hiện tại : {data?.childs?.sumChildsCheckInToday}
             </h3>
             <p>
               Tỷ lệ :
               {Math.round(
-                (data.childs.sumChildsCheckInToday / data.childs.sumChilds) *
+                (data?.childs?.sumChildsCheckInToday / data?.childs?.sumChilds) *
                   100
               )}
               %
@@ -43,13 +49,13 @@ export default async function Home() {
           </div>
           <div className="text-green-600 my-3 flex">
             <h3 className="font-bold  w-36 ">
-              Vắng : {data.childs.sumChilds - data.childs.sumChildsCheckInToday}
+              Vắng : {data?.childs?.sumChilds - data?.childs?.sumChildsCheckInToday}
             </h3>
             <p>
               Tỷ lệ :
               {Math.round(
-                ((data.childs.sumChilds - data.childs.sumChildsCheckInToday) /
-                  data.childs.sumChilds) *
+                ((data?.childs?.sumChilds - data?.childs?.sumChildsCheckInToday) /
+                  data?.childs?.sumChilds) *
                   100
               )}
               %
@@ -65,26 +71,26 @@ export default async function Home() {
           >
             Thanh niên
           </h2>
-          <h3 className="font-bold text-xl">Tổng : {data.youth.sumYouth}</h3>
+          <h3 className="font-bold text-xl">Tổng : {data?.youth?.sumYouth}</h3>
           <div className=" my-3 flex">
             <h3 className="font-bold w-36 ">
-              Hiện tại : {data.youth.sumYouthCheckInToday}
+              Hiện tại : {data?.youth?.sumYouthCheckInToday}
             </h3>
             <p>
               Tỷ lệ :
-              {(data.youth.sumYouthCheckInToday / data.youth.sumYouth) * 100}%
+              {(data?.youth?.sumYouthCheckInToday / data?.youth?.sumYouth) * 100}%
             </p>
           </div>
           <div className="my-3 flex">
             <h3 className="font-bold  w-36 ">
-              Vắng : {data.youth.sumYouth - data.youth.sumYouthCheckInToday}
+              Vắng : {data?.youth?.sumYouth - data?.youth?.sumYouthCheckInToday}
             </h3>
             <p>
               {" "}
               Tỷ lệ :
               {Math.round(
-                ((data.youth.sumYouth - data.youth.sumYouthCheckInToday) /
-                  data.youth.sumYouth) *
+                ((data?.youth?.sumYouth - data?.youth?.sumYouthCheckInToday) /
+                  data?.youth?.sumYouth) *
                   100
               )}
               %
