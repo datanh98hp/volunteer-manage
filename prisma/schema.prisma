@@ -8,6 +8,8 @@ generator client {
   provider = "prisma-client-js"
   // output   = "../src/generated/client"
   previewFeatures = ["fullTextSearch"]
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 datasource db {
