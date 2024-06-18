@@ -5,24 +5,39 @@ const prisma = new PrismaClient()
 export async function GET(request: Request, { params }: { params: { id: string } }) {
 
     const { id } = params
-
+    const checkIns = await prisma.checkIn.findMany({
+        where: {
+            memberId: Number(id)
+        }
+    })
     const sumCheckIn = await prisma.checkIn.count({
         where: {
             memberId: Number(id)
         }
     })
-   
-    const data = await prisma.member.groupBy({
-        by: ['id'],
+ 
+    const data = await prisma.member.findUnique({
         where: {
             id: Number(id)  // convert string to number
         },
-        _sum: {
-            checkIn: true
-        },
-    
+        include: {
+            JoinIn: {
+                include: {
+                    perform: true
+                }
+            },
+            CheckIn: {
+                where: {
+                    memberId: Number(id)
+                }
+            }
+        }
+
     })
-    return Response.json(data)
+    return Response.json({
+        ...data,
+        sumCheckIn
+    })
 }
 
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
