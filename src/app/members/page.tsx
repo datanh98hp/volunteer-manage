@@ -20,10 +20,15 @@ async function getDataMembers() {
   return data;
 }
 async function getPerform(){
-  const res = await axiosClient.get("/api/perform");
-
-  const data = res.data;
-  return data;
+  try {
+   const res = await axiosClient.get("/api/perform");
+   const data = res.data;
+   return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+  
 }
 export default async function PerformPage() {
   const data = await getDataMembers();

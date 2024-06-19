@@ -13,6 +13,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
 import axiosClient from "@/lib/axiosClient";
+import Link from "next/link";
 export type Member = {
   id: string;
   fullname: string;
@@ -110,6 +111,7 @@ export const columns: ColumnDef<Member>[] = [
           description: "Delete member successfully",
         });
       };
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -120,15 +122,13 @@ export const columns: ColumnDef<Member>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(member.id)}
-            >
-              Sao chép ID
-            </DropdownMenuItem>
+            <Link href={`/members/${id}`}>
+              <DropdownMenuItem>Chi tiết</DropdownMenuItem>
+            </Link>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => handleDelete()}>
               Xóa
-            </DropdownMenuItem>         
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
