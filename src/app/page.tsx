@@ -10,12 +10,11 @@ async function getDataHomePage() {
     console.log(error.message);
     return error;
   }
-  
 }
 
 export default async function Home() {
   const data = await getDataHomePage();
-  console.log(data);
+  // console.log(data);
   return (
     <main className="flex flex-col justify-between">
       <h2 className="text-3xl font-bold text-center h-20 w-full mt-20 mb-8">
@@ -41,7 +40,8 @@ export default async function Home() {
             <p>
               Tỷ lệ :
               {Math.round(
-                (data?.childs?.sumChildsCheckInToday / data?.childs?.sumChilds) *
+                (data?.childs?.sumChildsCheckInToday /
+                  data?.childs?.sumChilds) *
                   100
               )}
               %
@@ -49,12 +49,14 @@ export default async function Home() {
           </div>
           <div className="text-green-600 my-3 flex">
             <h3 className="font-bold  w-36 ">
-              Vắng : {data?.childs?.sumChilds - data?.childs?.sumChildsCheckInToday}
+              Vắng :{" "}
+              {data?.childs?.sumChilds - data?.childs?.sumChildsCheckInToday}
             </h3>
             <p>
               Tỷ lệ :
               {Math.round(
-                ((data?.childs?.sumChilds - data?.childs?.sumChildsCheckInToday) /
+                ((data?.childs?.sumChilds -
+                  data?.childs?.sumChildsCheckInToday) /
                   data?.childs?.sumChilds) *
                   100
               )}
@@ -78,7 +80,9 @@ export default async function Home() {
             </h3>
             <p>
               Tỷ lệ :
-              {(data?.youth?.sumYouthCheckInToday / data?.youth?.sumYouth) * 100}%
+              {(data?.youth?.sumYouthCheckInToday / data?.youth?.sumYouth) *
+                100}
+              %
             </p>
           </div>
           <div className="my-3 flex">
@@ -114,13 +118,17 @@ export default async function Home() {
               Hoạt động : 3
             </h3>
             <div className="flex h-full flex-col justify-center">
-              <p>Đang diễn ra : 0</p>
+              <p>Đang diễn ra : {data?.actions?.qty}</p>
               <h3>Hoạt động chuẩn bị:0</h3>
               <div className="w-full">
-                <div className="flex  my-2">
-                  <p className="font-bold w-36">Đá bóng : </p>
-                  <p> 7 người</p>
-                </div>
+                {data?.actions?.data?.map((item:any, index: number) => (
+                  <div className="flex my-2 " key={index}>
+                    <p className="font-bold border w-40">
+                      {index + 1}. {item.name}:
+                    </p>
+                    <p> 0 người</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
