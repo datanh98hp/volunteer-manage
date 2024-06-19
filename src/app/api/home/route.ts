@@ -50,7 +50,7 @@ export async function GET(request: Request) {
                 notIn: childs.map((child) => child.id)
             },
             createdAt: {
-                lt: new Date()
+                gte: new Date()
             }
         },
         include: {
@@ -89,7 +89,7 @@ export async function GET(request: Request) {
                 notIn: youth.map((youth) => youth.id)
             },
             createdAt: {
-                lt: new Date()
+                gte: new Date()
             }
         },
         include: {
