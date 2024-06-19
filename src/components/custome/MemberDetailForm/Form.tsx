@@ -62,10 +62,10 @@ export default function FormDetail({ data }: { data: any }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fullname: "",
-      type: "CHILDREND",
-      class: "",
-      school: "",
+      fullname: data.fullname,
+      type: data.type,
+      class: data.class,
+      school: data.school,
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -73,6 +73,14 @@ export default function FormDetail({ data }: { data: any }) {
     // ✅ This will be type-safe and validated.
     // call  update user data
     console.log(values);
+    axiosClient
+      .put(`/api/member/${data.id}`, values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -82,46 +90,59 @@ export default function FormDetail({ data }: { data: any }) {
           <FormField
             control={form.control}
             name="fullname"
-            render={({ field }) => (
-              <FormItem className="m-2">
-                <FormLabel>Họ và tên</FormLabel>
-                <FormControl>
-                  <Input
-                    className=" outline-none"
-                    placeholder="Nhập họ và tên"
-                    {...field}
-                  />
-                </FormControl>
-
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="m-2 flex gap-4">
-            <FormField
-              control={form.control}
-              name="fullname"
-              render={({ field }) => (
-                <FormItem className="">
-                  <FormLabel>Loại thành viên</FormLabel>
+            render={({ field }) => {
+              return (
+                <FormItem className="m-2">
+                  <FormLabel>Họ và tên</FormLabel>
                   <FormControl>
-                    <Select>
-                      <SelectTrigger className="">
-                        <SelectValue placeholder="Loại" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {listType.map((item, index) => (
-                          <SelectItem key={index} value={item}>
-                            {item === "CHILDREND" ? "Thiếu nhi" : "Thanh niên"}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <Input
+                      className=" outline-none"
+                      placeholder="Nhập họ và tên"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
                 </FormItem>
-              )}
+              );
+            }}
+          />
+          <div className="m-2 flex gap-4">
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => {
+                // console.log(field.value);
+                field.value = data.type;
+                return (
+                  <FormItem className="">
+                    <FormLabel>Loại thành viên</FormLabel>
+                    <FormControl>
+                      <Select>
+                        <SelectTrigger className="">
+                          <SelectValue placeholder={field.value==="CHILDREND"?"Thiếu nhi":"Thanh niên"} {...field} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {listType.map((item, index) => (
+                            <SelectItem
+                              key={index}
+                              value={item}
+                              
+                            >
+                              {item === "CHILDREND"
+                                ? "Thiếu nhi"
+                                : "Thanh niên"}
+                            </SelectItem>
+                          ))}
+                        
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
             />
 
             <FormField
@@ -159,7 +180,7 @@ export default function FormDetail({ data }: { data: any }) {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className="text-end">Cập nhật</Button>
         </form>
       </Form>
     </div>
