@@ -20,7 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import axiosClient from "@/lib/axiosClient";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -123,17 +123,19 @@ export const columns: ColumnDef<Perform>[] = [
                       {data?.JoinIn.map((item, index) => (
                         <TableRow key={index}>
                           <TableCell className=" text-center">
-                            {item.member.id}
+                            {index}
                           </TableCell>
                           <TableCell className="text-center ">
-                            {item.member.fullname}
+                            {item?.member?.fullname}
                           </TableCell>
                           <TableCell className="text-center">
-                            {item.member.class}
+                            {item?.member?.class}
                           </TableCell>
-                          <TableCell className="">{item.member.type}</TableCell>
+                          <TableCell className="">
+                            {item?.member?.type}
+                          </TableCell>
                           <TableCell className="text-center">
-                            {item.member.school}
+                            {item?.member?.school}
                           </TableCell>
                         </TableRow>
                       ))}
