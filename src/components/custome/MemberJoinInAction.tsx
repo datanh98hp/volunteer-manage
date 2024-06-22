@@ -16,7 +16,11 @@ export default function MemberJoinInAction({
     }
 }) {
     const handleDeleteFromPerformList =  () => {
-        //  axiosClient.delete(`/api/perform/member/${item.memberId}`)
+         axiosClient.delete(`/api/perform/member/${item.memberId}/${item.perform.id}`,{
+            data: {
+                performId: item.perform.id
+            }
+         })
         console.log(`Delete from list`, item.perform.id);
     }
     return (

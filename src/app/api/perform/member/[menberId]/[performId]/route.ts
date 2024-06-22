@@ -6,10 +6,15 @@ const prisma = new PrismaClient()
 export async function POST(request: Request, { params }: { params: { menberId: string, performId: string } }) {
     const { menberId, performId } = params
     try {
-        const del = await prisma.joinIn.delete({
+        const del = await prisma.joinIn.findFirst({
             where: {
                 memberId: Number(menberId),
                 perfomId: Number(performId)
+            }
+        })
+        await prisma.joinIn.delete({
+            where: {
+                id: del?.id
             }
         })
         return Response.json({ message: 'success' }, { status: 200 })
