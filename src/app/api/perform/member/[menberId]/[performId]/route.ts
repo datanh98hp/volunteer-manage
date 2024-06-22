@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
 
-export async function POST(request: Request, { params }: { params: { menberId: string, performId: string } }) {
+export async function DELETE(request: Request, { params }: { params: { menberId: string, performId: string } }) {
     const { menberId, performId } = params
     try {
         const del = await prisma.joinIn.findFirst({
