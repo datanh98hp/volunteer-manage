@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import axiosClient from "@/lib/axiosClient";
+import { toast } from "@/components/ui/use-toast";
 const formSchema = z.object({
   fullname: z
     .string()
@@ -77,6 +78,11 @@ export default function FormDetail({ data }: { data: any }) {
       .put(`/api/member/${data.id}`, values)
       .then((res) => {
         console.log(res);
+        toast({
+          title: "Success",
+          color: "green",
+          description: "Cập nhật thành công.",
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -116,7 +122,7 @@ export default function FormDetail({ data }: { data: any }) {
                 field.value = data.type;
                 return (
                   <FormItem className="">
-                    <FormLabel>Loại thành viên</FormLabel>
+                    <FormLabel>Loại</FormLabel>
                     <FormControl>
                       <Select>
                         <SelectTrigger className="">

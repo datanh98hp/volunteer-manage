@@ -465,18 +465,23 @@ export function DataTable<TData, TValue>({
           </SelectContent>
         </Select>
         {/*  */}
-        <Select onValueChange={(value) => handleAddToPerform(value)}>
-          <SelectTrigger className="md:w-[180px]">
-            <SelectValue placeholder="Them vao tiet muc" />
-          </SelectTrigger>
-          <SelectContent className="w-[180px] outline-none">
-            {performs.map((perform) => (
-              <SelectItem key={perform.id} value={perform.id}>
-                {perform.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        {
+          table.getFilteredSelectedRowModel().rows.length > 0 && (
+            <Select onValueChange={(value) => handleAddToPerform(value)}>
+              <SelectTrigger className="md:w-[176px] mx-2">
+                <SelectValue placeholder="Them vao tiet muc" />
+              </SelectTrigger>
+              <SelectContent className="w-[180px] outline-none">
+                {performs.map((perform) => (
+                  <SelectItem key={perform.id} value={perform.id}>
+                    {perform.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )
+        }
+       
       </div>
 
       <div className="rounded-md border">
