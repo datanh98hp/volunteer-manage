@@ -1,7 +1,10 @@
 import FormDetail from "@/components/custome/MemberDetailForm/Form";
 import { columns } from "@/components/custome/MemberDetailForm/column-members";
 import { DataTable } from "@/components/custome/MemberDetailForm/data-table";
+import MemberJoinInAction from "@/components/custome/MemberJoinInAction";
+import { Button } from "@/components/ui/button";
 import axiosClient from "@/lib/axiosClient";
+import { CircleX } from "lucide-react";
 
 async function getMemberById(id: string) {
   try {
@@ -27,17 +30,11 @@ export default async function DetailMember({
             <h3 className="p-4">Hoạt động tham gia</h3>
             <div className="flex flex-wrap p-4">
               {data.JoinIn?.map((item: any, index: number) => (
-                <div
-                  className="mr-2 p-2 border-[0.1rem] w-fit rounded-full mx-2x"
-                  key={item.id}
-                >
-                  <p>{item.name}</p>
-                </div>
+                <MemberJoinInAction key={item.id} item={item} />
               ))}
               <div className="mr-1 p-2 border-[0.1rem] w-fit rounded-full mx-2x">
                 <p>Đồng diễn võ</p>
               </div>
-
             </div>
           </div>
           <div>

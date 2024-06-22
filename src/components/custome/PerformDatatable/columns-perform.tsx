@@ -8,7 +8,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, PlusCircle } from "lucide-react";
+import { ArrowUpDown, MenuIcon, MoreHorizontal, PlusCircle } from "lucide-react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -117,6 +117,9 @@ export const columns: ColumnDef<Perform>[] = [
                         <TableHead className="text-center">Lớp</TableHead>
                         <TableHead className="text-center">Loại</TableHead>
                         <TableHead className="text-center">Trường</TableHead>
+                        <TableHead className="text-center">
+                          <MenuIcon className="h-5 w-5" />
+                        </TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -124,6 +127,7 @@ export const columns: ColumnDef<Perform>[] = [
                         <TableRow key={index}>
                           <TableCell className=" text-center">
                             {index}
+                           
                           </TableCell>
                           <TableCell className="text-center ">
                             {item?.member?.fullname}
@@ -160,7 +164,7 @@ export const columns: ColumnDef<Perform>[] = [
     },
     cell: ({ row }) => {
       const member = row.original;
-     
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

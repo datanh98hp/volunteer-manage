@@ -52,5 +52,5 @@ model JoinIn {
   member   Member?  @relation(fields: [memberId], references: [id])
   memberId Int?
   perform  Perform? @relation(fields: [perfomId], references: [id],onDelete: Cascade,onUpdate: Cascade)
-  perfomId Int?
+  perfomId Int
 }
